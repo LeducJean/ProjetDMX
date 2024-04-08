@@ -1,6 +1,8 @@
 <?php
 session_start();
 
+include "onj/placeBloc.php";
+
 // Vérifier si l'utilisateur est connecté ou vient de s'inscrire
 if (!isset($_SESSION['user_id']) && !isset($_SESSION['just_registered'])) {
     // Redirection vers la page de connexion si l'utilisateur n'est pas connecté
@@ -67,7 +69,47 @@ item heights, please let me know!
     <script src='//fb.me/react-dom-15.0.1.min.js'></script>
     <script src='//npmcdn.com/react-motion@0.4.2/build/react-motion.js'></script>
     <script src='//cdnjs.cloudflare.com/ajax/libs/lodash.js/4.6.1/lodash.min.js'></script>
-    <script src="js/script.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+<?php
+// Définir une variable PHP
+$nom = "John";
+?>
+
+
+<script>
+    // Passer une variable PHP à JavaScript
+    var nomJS = "<?php echo $nom; ?>";
+</script>
+
+
+<!-- Inclure script.js après avoir défini la variable nomJS -->
+<script src="js/scriptLightBoard.js"></script>
+
+
+
+
+
+<!--ordre important-->
+
+
+
+
+
+<?php
+$variable2 = "<script>document.write(variable1);</script>";
+echo $variable2;
+?>
+
 
 </body>
 
