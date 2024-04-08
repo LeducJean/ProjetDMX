@@ -22,23 +22,26 @@ unset($_SESSION['just_registered']);
 ?>
 
 <!DOCTYPE html>
-<html lang="en" >
+<html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <title>CodePen - Drag &amp; Drop Grid Layout in React</title>
-  <style>
-*,
-*:before,
-*:after {
-	box-sizing: border-box;
-}
-</style><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
-<link rel="stylesheet" href="css/style.css">
+    <meta charset="UTF-8">
+    <title>CodePen - Drag &amp; Drop Grid Layout in React</title>
+    <style>
+        *,
+        *:before,
+        *:after {
+            box-sizing: border-box;
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+    <link rel="stylesheet" href="css/style.css">
 
 </head>
+
 <body>
-<!-- partial:index.partial.html -->
-<!--
+    <!-- partial:index.partial.html -->
+    <!--
 
 This is a proof of concept based on Cheng Lou's
 totally amazing React Motion library:
@@ -57,13 +60,15 @@ item heights, please let me know!
 
 -->
 
-<h1 class="title">Drag &amp; Drop Grid Layout in React</h1>
-<div id="react-root"></div>
-<!-- partial -->
-  <script src='//fb.me/react-with-addons-15.0.1.min.js'></script>
-<script src='//fb.me/react-dom-15.0.1.min.js'></script>
-<script src='//npmcdn.com/react-motion@0.4.2/build/react-motion.js'></script>
-<script src='//cdnjs.cloudflare.com/ajax/libs/lodash.js/4.6.1/lodash.min.js'></script><script  src="js/script.js"></script>
+    <h1 class="title">Drag &amp; Drop Grid Layout in React</h1>
+    <div id="react-root"></div>
+    <!-- partial -->
+    <script src='//fb.me/react-with-addons-15.0.1.min.js'></script>
+    <script src='//fb.me/react-dom-15.0.1.min.js'></script>
+    <script src='//npmcdn.com/react-motion@0.4.2/build/react-motion.js'></script>
+    <script src='//cdnjs.cloudflare.com/ajax/libs/lodash.js/4.6.1/lodash.min.js'></script>
+    <script src="js/script.js"></script>
 
 </body>
+
 </html>

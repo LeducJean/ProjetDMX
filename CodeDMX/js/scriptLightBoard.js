@@ -1,4 +1,12 @@
-var placeBloc = "test";
+var variable1 = "Successful tutorial";
+
+
+
+// Vous pouvez maintenant accéder à la variable nomJS ici
+console.log("Le nom (depuis script.js) est : " + nomJS);
+
+
+
 
 const dataStructure = [// structure that models our initial rendered view of items
 [0, 1, 2, 3],
