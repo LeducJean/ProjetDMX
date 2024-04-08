@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-include "onj/placeBloc.php";
+include "obj/placeBloc.php";
 
 // Vérifier si l'utilisateur est connecté ou vient de s'inscrire
 if (!isset($_SESSION['user_id']) && !isset($_SESSION['just_registered'])) {
