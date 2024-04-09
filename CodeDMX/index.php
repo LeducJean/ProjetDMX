@@ -1,6 +1,6 @@
 <?php
-include "inscription.php";
-include "connexion.php";
+include "obj/inscription.php";
+include "obj/connexion.php";
 
 // Utilisateur déjà connecté ?
 if (isset($_SESSION['user_id'])) {
