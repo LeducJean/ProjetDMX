@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-include "obj/placeBloc.php";
+//include "obj/placeBloc.php";
 
 // Vérifier si l'utilisateur est connecté ou vient de s'inscrire
 if (!isset($_SESSION['user_id']) && !isset($_SESSION['just_registered'])) {
@@ -42,6 +42,11 @@ unset($_SESSION['just_registered']);
 </head>
 
 <body>
+    <form method="post" action="">
+        <input type="submit" name="logout" value="Se déconnecter">
+    </form>
+
+
     <!-- partial:index.partial.html -->
     <!--
 
@@ -80,35 +85,35 @@ item heights, please let me know!
 
 
 
-<?php
-// Définir une variable PHP
-$nom = "John";
-?>
+    <?php
+    // Définir une variable PHP
+    $nom = "John";
+    ?>
 
 
-<script>
-    // Passer une variable PHP à JavaScript
-    var nomJS = "<?php echo $nom; ?>";
-</script>
+    <script>
+        // Passer une variable PHP à JavaScript
+        var nomJS = "<?php echo $nom; ?>";
+    </script>
 
 
-<!-- Inclure script.js après avoir défini la variable nomJS -->
-<script src="js/scriptLightBoard.js"></script>
-
-
-
-
-
-<!--ordre important-->
+    <!-- Inclure script.js après avoir défini la variable nomJS -->
+    <script src="js/scriptLightBoard.js"></script>
 
 
 
 
 
-<?php
-$variable2 = "<script>document.write(variable1);</script>";
-echo $variable2;
-?>
+    <!--ordre important-->
+
+
+
+
+
+    <?php
+    $variable2 = "<script>document.write(variable1);</script>";
+    echo $variable2;
+    ?>
 
 
 </body>
