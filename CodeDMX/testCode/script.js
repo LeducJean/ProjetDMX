@@ -9,8 +9,9 @@ document.addEventListener("DOMContentLoaded", function() {
             event.preventDefault();
 
             // Récupérer les coordonnées de la souris par rapport à la scène
-            offsetX = event.clientX - scene.getBoundingClientRect().left;
-            offsetY = event.clientY - scene.getBoundingClientRect().top;
+            let rect = scene.getBoundingClientRect();
+            offsetX = event.clientX - rect.left;
+            offsetY = event.clientY - rect.top;
 
             // Déplacer la scène en suivant le curseur de la souris
             document.addEventListener("mousemove", moveScene);
@@ -34,8 +35,12 @@ document.addEventListener("DOMContentLoaded", function() {
             let id = scene.dataset.id;
             let x = parseInt(scene.style.left);
             let y = parseInt(scene.style.top);
-            // Envoyer les données de position au script PHP pour mise à jour dans la base de données
             updatePosition(id, x, y);
+        });
+
+        scene.addEventListener("click", function() {
+            let id = scene.dataset.id;
+            sendRequest(id);
         });
     });
 
@@ -50,5 +55,22 @@ document.addEventListener("DOMContentLoaded", function() {
             }
         };
         xhr.send("id=" + id + "&x=" + x + "&y=" + y);
+    }
+
+    function sendRequest(id) {
+        // Envoyer une requête SQL vers la base de données avec l'identifiant de la scène
+        // Exemple de code pour envoyer une requête avec fetch API
+        fetch('activerScene.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            body: 'id=' + id
+        })
+        .then(response => response.json())
+        .then(data => {
+            // Faire quelque chose avec la réponse de la requête si nécessaire
+        })
+        .catch(error => console.error('Error:', error));
     }
 });
