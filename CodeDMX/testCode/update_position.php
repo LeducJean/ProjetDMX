@@ -4,7 +4,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Vérifier si les données requises sont présentes
     if (isset($_POST["id"]) && isset($_POST["x"]) && isset($_POST["y"])) {
         // Connexion à la base de données
-        $conn = new mysqli("localhost", "root", "", "DMX");
+        $conn = new mysqli("192.168.64.213", "root", "root", "DMX");
         if ($conn->connect_error) {
             die("Connection failed: " . $conn->connect_error);
         }

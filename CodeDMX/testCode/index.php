@@ -13,7 +13,7 @@
     <div id="scenes-container">
         <?php
         // Connexion à la base de données
-        $conn = new mysqli("localhost", "root", "", "DMX");
+        $conn = new mysqli("192.168.64.213", "root", "root", "DMX");
         if ($conn->connect_error) {
             die("Connection failed: " . $conn->connect_error);
         }
