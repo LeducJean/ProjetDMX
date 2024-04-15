@@ -1,10 +1,10 @@
 <?php
 // On essaye de se connecter  à  la BDD
     try {
-        $ipserver = "192.168.64.213";
+        $ipserver = "localhost";
         $nomBase = "DMX";
         $loginPrivilege = "root";
-        $passPrivilege = "root";
+        $passPrivilege = "";
         
         $GLOBALS["pdo"] = new PDO('mysql:host='.$ipserver.';dbname='.$nomBase.";charset=utf8mb4",$loginPrivilege,$passPrivilege);
     } 
