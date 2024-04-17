@@ -12,10 +12,19 @@
     <h1>Liste des scènes</h1>
     <div id="scenes-container">
         <?php
+
+        include '../obj/connexionBDD.php';
+
         // Connexion à la base de données
-        $conn = new mysqli("192.168.64.213", "root", "root", "DMX");
+        $conn = new mysqli("$ipserver", "$loginPrivilege", "$passPrivilege", "$nomBase");
         if ($conn->connect_error) {
             die("Connection failed: " . $conn->connect_error);
+        }
+
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            if (isset($_POST["activerScene"])) {
+                activerScene::activerScene($_POST["activerScene"]);
+            }
         }
         // Récupérer les scènes avec leurs positions x et y depuis la base de données
         $sql = "SELECT scene.id, scene.nom, lightBoard.x, lightBoard.y FROM scene INNER JOIN lightBoard ON scene.id = lightBoard.idScene";
@@ -27,7 +36,6 @@
         } else {
             echo "0 résultats";
         }
-        include 'activerScene.php';
 
         // Fermer la connexion à la base de données
         $conn->close();

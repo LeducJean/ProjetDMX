@@ -1,16 +1,29 @@
 <?php
-// Définir la fonction pour activer une scène avec un identifiant donné
-function activerScene($sceneId) {
-    // Récupérer l'identifiant de la scène envoyé depuis la requête POST
-    if (isset($sceneId)) {
-        // Traiter l'activation de la scène ici
-        // Par exemple, mettre à jour une colonne dans la base de données indiquant que la scène est activée
+class activerScene
+{
+    private static $pdo;
 
-        // Afficher "ok" comme réponse
-        echo "ok";
-    } else {
-        // Si aucun identifiant de scène n'est envoyé, afficher un message d'erreur
-        echo "Identifiant de scène manquant";
+    public static function setPdo($pdo)
+    {
+        self::$pdo = $pdo;
+    }
+
+    public static function activerScene($sceneId)
+    {
+        if (isset($sceneId)) {
+            // Préparer la requête SQL pour mettre à jour la colonne "active" de la scène dans la base de données
+            $stmt = self::$pdo->prepare("UPDATE scene SET active = 1 WHERE id = ?");
+            $stmt->execute([$sceneId]);
+
+            // Vérifier si la requête a réussi
+            if ($stmt->rowCount() > 0) {
+                echo "ok";
+            } else {
+                echo "Erreur lors de l'activation de la scène";
+            }
+        } else {
+            echo "Identifiant de scène manquant";
+        }
     }
 }
 ?>

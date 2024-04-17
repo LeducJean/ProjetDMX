@@ -2,8 +2,6 @@
 <?php
 include "connexionBdd.php";
 
-session_start();
-
 // Formulaire soumis ?
 if(isset($_POST['email'], $_POST['password'])) {
     // Récupération des données du formulaire
