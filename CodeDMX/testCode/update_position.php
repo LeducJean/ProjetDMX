@@ -5,16 +5,25 @@ include "../obj/connexionBdd.php";
 class LightBoardUpdater
 {
     public static function updatePosition($id, $x, $y)
-    {
-        // Récupérer la connexion PDO
-        global $pdo;
+{
+    // Récupérer la connexion PDO
+    global $pdo;
 
-        // Préparer et exécuter la requête de mise à jour des positions x et y
-        $stmt = $pdo->prepare("UPDATE lightBoard SET x = ?, y = ? WHERE idScene = ?");
-        $success = $stmt->execute([$x, $y, $id]);
+    // Vérifier si les données sont correctes
+    echo "ID : $id, X : $x, Y : $y\n";
 
-        return $success;
+    // Préparer et exécuter la requête de mise à jour des positions x et y
+    $stmt = $pdo->prepare("UPDATE lightBoard SET x = ?, y = ? WHERE id = ?");
+    $success = $stmt->execute([$x, $y, $id]);
+
+    // Vérifier si la requête a réussi
+    if (!$success) {
+        echo "Échec de l'exécution de la requête SQL\n";
     }
+
+    return $success;
+}
+
 }
 
 // Vérifier si les données sont reçues via une requête POST
