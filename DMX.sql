@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : localhost
--- Généré le : jeu. 28 mars 2024 à 15:26
+-- Généré le : jeu. 18 avr. 2024 à 11:06
 -- Version du serveur : 10.5.21-MariaDB-0+deb11u1
 -- Version de PHP : 7.4.33
 
@@ -152,24 +152,24 @@ CREATE TABLE `lightBoard` (
   `x` int(11) NOT NULL,
   `y` int(11) NOT NULL,
   `idScene` int(11) NOT NULL,
-  `onOff` int(11) DEFAULT 0
+  `requete_sql` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Déchargement des données de la table `lightBoard`
 --
 
-INSERT INTO `lightBoard` (`id`, `idUser`, `x`, `y`, `idScene`, `onOff`) VALUES
-(1, 12, 8, 11, 3, 0),
-(2, 4, 41, 82, 4, 0),
-(3, 12, 8, 7, 5, 0),
-(4, 14, 9, 32, 1, 0),
-(5, 5, 4, 1, 2, 0),
-(6, 7, 7, 68, 3, 0),
-(7, 12, 5, 8, 3, 0),
-(8, 3, 6, 9, 4, 0),
-(9, 3, 9, 6, 3, 0),
-(10, 4, 8, 7, 1, 1);
+INSERT INTO `lightBoard` (`id`, `idUser`, `x`, `y`, `idScene`, `requete_sql`) VALUES
+(1, 12, 250, 250, 3, ''),
+(2, 4, 421, 320, 4, ''),
+(3, 12, 69, 137, 5, ''),
+(4, 14, 343, 265, 1, ''),
+(5, 5, 60, 66, 2, ''),
+(6, 7, 440, 212, 3, ''),
+(7, 12, 440, 212, 3, ''),
+(8, 3, 421, 320, 4, ''),
+(9, 3, 440, 212, 3, ''),
+(10, 4, 343, 265, 1, '');
 
 -- --------------------------------------------------------
 
@@ -179,24 +179,25 @@ INSERT INTO `lightBoard` (`id`, `idUser`, `x`, `y`, `idScene`, `onOff`) VALUES
 
 CREATE TABLE `scene` (
   `id` int(11) NOT NULL,
-  `nom` varchar(25) NOT NULL
+  `nom` varchar(25) NOT NULL,
+  `onOff` int(11) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Déchargement des données de la table `scene`
 --
 
-INSERT INTO `scene` (`id`, `nom`) VALUES
-(1, 'studio'),
-(2, 'laSceneBleue'),
-(3, 'laSceneRouge'),
-(4, 'laSceneVerte'),
-(5, 'laSceneMusicale'),
-(6, 'SceneConcentre'),
-(7, 'SceneFolie'),
-(8, 'SceneDisco'),
-(9, 'SceneFin'),
-(10, 'SceneFamille');
+INSERT INTO `scene` (`id`, `nom`, `onOff`) VALUES
+(1, 'studio', 1),
+(2, 'laSceneBleue', 0),
+(3, 'laSceneRouge', 0),
+(4, 'laSceneVerte', 0),
+(5, 'laSceneMusicale', 0),
+(6, 'SceneConcentre', 0),
+(7, 'SceneFolie', 0),
+(8, 'SceneDisco', 0),
+(9, 'SceneFin', 0),
+(10, 'SceneFamille', 0);
 
 -- --------------------------------------------------------
 
@@ -232,7 +233,11 @@ INSERT INTO `user` (`id`, `nom`, `prenom`, `email`, `password`, `isAdmin`) VALUE
 (12, 'Briaux', 'simon', 'simonbriaux@gmail.com', 'briauxS', 0),
 (13, 'admin', 'admin', 'admin@gmail.com', 'admin', 1),
 (14, 'bilhaut', 'theo', 'Btheo@gmail.com', 'btheo', 0),
-(15, 'tabary', 'hugo', 'hugotabary@gmail.com', 'hugot', 0);
+(15, 'tabary', 'hugo', 'hugotabary@gmail.com', 'hugot', 0),
+(39499, 'TestNom', 'TestPrenom', 'test@example.com', 'password', 0),
+(39500, 'Test', 'User', 'test@example.com', 'testpassword', 0),
+(39501, 'Test', 'User', 'test@example.com', 'testpassword', 0),
+(39502, 'Test', 'User', 'test@example.com', 'testpassword', 0);
 
 --
 -- Index pour les tables déchargées
@@ -314,7 +319,7 @@ ALTER TABLE `scene`
 -- AUTO_INCREMENT pour la table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39499;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39503;
 
 --
 -- Contraintes pour les tables déchargées

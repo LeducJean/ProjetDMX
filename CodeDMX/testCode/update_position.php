@@ -1,6 +1,6 @@
 <?php
 
-include "../obj/connexionBDD.php";
+include "../obj/connexionBdd.php";
 
 class LightBoardUpdater
 {
@@ -11,7 +11,9 @@ class LightBoardUpdater
 
         // Préparer et exécuter la requête de mise à jour des positions x et y
         $stmt = $pdo->prepare("UPDATE lightBoard SET x = ?, y = ? WHERE idScene = ?");
-        $stmt->execute([$x, $y, $id]);
+        $success = $stmt->execute([$x, $y, $id]);
+
+        return $success;
     }
 }
 

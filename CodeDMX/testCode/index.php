@@ -13,7 +13,7 @@
     <div id="scenes-container">
         <?php
 
-        include '../obj/connexionBDD.php';
+        include '../obj/connexionBdd.php';
 
         // Connexion à la base de données
         $conn = new mysqli("$ipserver", "$loginPrivilege", "$passPrivilege", "$nomBase");

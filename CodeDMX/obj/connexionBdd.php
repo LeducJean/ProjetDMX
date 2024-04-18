@@ -1,5 +1,4 @@
 <?php
-include '../testCode/activerScene.php';
 
 // On essaye de se connecter  à  la BDD
 try {
