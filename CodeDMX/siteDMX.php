@@ -78,13 +78,6 @@ item heights, please let me know!
 
 
 
-
-
-
-
-
-
-
     <?php
     // Définir une variable PHP
     $nom = "John";

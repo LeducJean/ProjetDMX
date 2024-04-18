@@ -1,12 +1,12 @@
-var variable1 = "Successful tutorial";
+//var variable1 = "Successful tutorial";
 
 
 
 // Vous pouvez également utiliser la variable JavaScript directement depuis un fichier externe
-console.log("Le nom (depuis script.js) est : " + nomJS);
+//console.log("Le nom (depuis script.js) est : " + nomJS);
 
 // Utiliser la variable JavaScript directement depuis un fichier externe
-console.log("Les valeurs de x (depuis scriptLightBoard.js) sont : ", valeursX);
+//console.log("Les valeurs de x (depuis scriptLightBoard.js) sont : ", valeursX);
 
 
 
