@@ -15,6 +15,4 @@ catch (Exception $error)
     $error->getMessage();
     echo "Erreur BDD : " .$error;
 }
-
-activerScene::setPdo($pdo);
 ?>
