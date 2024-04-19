@@ -6,7 +6,7 @@ const StudiomodePage = () => {
 
   useEffect(() => {
     const fetchScenes = async () => {
-      const result = await axios.get('http://localhost/CodeDMX/scenes.php');
+      const result = await axios.get('http://localhost/ProjetDMX/CodeDMX/scenes.php');
       setScenes(result.data);
     };
     fetchScenes();
