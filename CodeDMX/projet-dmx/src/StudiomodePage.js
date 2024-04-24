@@ -20,7 +20,12 @@ const StudiomodePage = () => {
 
   return (
     <div className="scene-grid">
-      <h1>Mode studio</h1>
+      <div className="header">
+        <h1>Mode Studio</h1>
+        <Link to="/configuration">
+          <button className="configuration-button">Mode configuration</button>
+        </Link>
+      </div>
       <div className="scenes-container">
         {scenes.slice(0, 9).map((scene) => (
           <div key={scene.id} className="scene-item">
@@ -30,9 +35,6 @@ const StudiomodePage = () => {
           </div>
         ))}
       </div>
-      <Link to="/configuration">
-        <button className="configuration-button">Mode configuration</button>
-      </Link>
     </div>
   );
 };

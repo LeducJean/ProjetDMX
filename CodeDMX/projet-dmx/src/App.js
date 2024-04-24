@@ -2,7 +2,7 @@ import React from 'react';
 import './App.css';
 import StudiomodePage from './StudiomodePage';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import ConfigurationModePage from './ConfigurationModePage';
+import ConfigurationModePage from './ConfigurationmodePage';
 
 function App() {
   return (
