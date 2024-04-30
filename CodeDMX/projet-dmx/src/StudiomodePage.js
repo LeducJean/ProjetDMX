@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
-import './StudiomodePage.css'; // Importer le fichier CSS
+import './StudiomodePage.css';
 
 const StudiomodePage = () => {
   const [scenes, setScenes] = useState([]);
@@ -25,7 +25,7 @@ const StudiomodePage = () => {
     fetchConfig();
   }, []);
 
-  const handleSceneClick = (sceneId) => {
+  const handleSceneClick = (sceneId) =>  {
     // code pour gérer le clic sur un bouton de scène
   };
 
