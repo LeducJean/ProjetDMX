@@ -11,16 +11,24 @@ const StudiomodePage = () => {
 
   useEffect(() => {
     const fetchScenes = async () => {
-      const result = await axios.get('http://192.168.65.91/ProjetDMX/CodeDMX/scenes.php');
-      setScenes(result.data);
+      try {
+        const result = await axios.get('http://192.168.65.91/ProjetDMX/CodeDMX/scenes.php');
+        setScenes(result.data);
+      } catch (error) {
+        console.error('Error fetching scenes:', error);
+      }
     };
     fetchScenes();
   }, []);
 
   useEffect(() => {
     const fetchConfig = async () => {
-      const result = await axios.get('http://192.168.65.91/ProjetDMX/CodeDMX/config.php');
-      setConfig(result.data);
+      try {
+        const result = await axios.get('http://192.168.65.91/ProjetDMX/CodeDMX/config.php');
+        setConfig(result.data.map((id) => ({ id })));
+      } catch (error) {
+        console.error('Error fetching configuration:', error);
+      }
     };
     fetchConfig();
   }, []);
@@ -36,15 +44,20 @@ const StudiomodePage = () => {
   const handleDragEnd = (result) => {
     if (!result.destination) return;
 
-    const newConfig = Array.from(config);
-    const [removed] = newConfig.splice(result.source.index, 1);
-    newConfig.splice(result.destination.index, 0, removed);
+    const newConfigWithIds = Array.from(config);
+    const [removed] = newConfigWithIds.splice(result.source.index, 1);
+    newConfigWithIds.splice(result.destination.index, 0, removed);
 
-    setConfig(newConfig);
+    setConfig(newConfigWithIds);
   };
 
   const handleSaveConfig = async () => {
-    await axios.post('http://192.168.65.91/ProjetDMX/CodeDMX/save_config.php', { config });
+    try {
+      const configWithIds = config.map(({ id }) => id);
+      await axios.post('http://192.168.65.91/ProjetDMX/CodeDMX/save_config.php', { config: configWithIds });
+    } catch (error) {
+      console.error('Error saving configuration:', error);
+    }
   };
 
   return (
@@ -91,8 +104,8 @@ const StudiomodePage = () => {
                   {...provided.droppableProps}
                   className="config-grid"
                 >
-                  {config.map((sceneId, index) => (
-                    <Draggable key={sceneId} draggableId={sceneId.toString()} index={index}>
+                  {config.map(({ id }, index) => (
+                    <Draggable key={id} draggableId={id.toString()} index={index}>
                       {(provided) => (
                         <div
                           ref={provided.innerRef}
@@ -100,7 +113,7 @@ const StudiomodePage = () => {
                           {...provided.dragHandleProps}
                           className="config-item"
                         >
-                          {scenes.find((scene) => scene.id === sceneId)?.nom}
+                          {scenes.find((scene) => scene.id === id)?.nom}
                         </div>
                       )}
                     </Draggable>
