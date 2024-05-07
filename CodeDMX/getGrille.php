@@ -15,7 +15,7 @@ try {
     if (isset($_GET['userId'])) {
         // Requête SQL pour récupérer les données de la table 'scene'
        // $sql = 'SELECT * FROM lightBoard WHERE idUser='.$_GET['userId'].'';
-       $sql = 'select lightBoard.id AS id, lightBoard.idUser AS idUser, lightBoard.x AS x, lightBoard.y AS y, lightBoard.idScene AS idScene, scene.nom AS nom, scene.onOff AS onOff from lightBoard, scene WHERE lightBoard.idUser='.$_GET['userId'].' AND lightBoard.idScene=scene.id';
+       $sql = 'select lightBoard.id AS id, lightBoard.idUser AS idUser, lightBoard.x AS x, lightBoard.y AS y, lightBoard.idScene AS idScene, scene.nom AS nom, lightBoard.onOff AS onOff from lightBoard, scene WHERE lightBoard.idUser='.$_GET['userId'].' AND lightBoard.idScene=scene.id';
         $stmt = $pdo->query($sql);
         $scenes = $stmt->fetchAll(PDO::FETCH_ASSOC);
 

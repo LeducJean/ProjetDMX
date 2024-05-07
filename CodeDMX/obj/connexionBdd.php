@@ -3,7 +3,7 @@
 // On essaye de se connecter  à  la BDD
 try {
     $ipserver = "192.168.64.213";
-    $nomBase = "DMX";
+    $nomBase = "testCodeDMX";
     $loginPrivilege = "root";
     $passPrivilege = "root";
 

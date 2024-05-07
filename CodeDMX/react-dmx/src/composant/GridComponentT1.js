@@ -78,7 +78,3 @@ const fetchDataFromAPI = async (userId) => {
 };
 
 export default GridComponentT1;
-
-//[{"id":"1","idUser":"12","x":"1","y":"1","idScene":"3","requete_sql":""},{"id":"7","idUser":"12","x":"380","y":"343","idScene":"3","requete_sql":""},{"id":"3","idUser":"12","x":"3","y":"1","idScene":"5","requete_sql":""}]
-
-//[{"id": "1", "idUser": "12", "x": "1", "y": "1", "idScene": "3", "nom": laSceneRouge", "onOff": "0"}, {"id": "7", "idUser": "12", "x": "2", "y": "1", "idScene": "3", "nom": "laSceneRouge", "onOff": "0"}, {"id": "3", "idUser": "12", "x": "0", "y": "1", "idScene": "5", "nom": "laSceneMusicale", "onOff": "0"}]

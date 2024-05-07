@@ -22,7 +22,6 @@ const GridComponentT2 = () => {
 
     const handleCellDragStart = (event, cellId) => {
         // Rechercher l'ID de la donnée de grille associée à la cellule glissée
-        console.log('coucou');
         console.log(gridData);
         console.log(cellId);
     const draggedCellData = gridData.find(cell => cell.id === cellId);
@@ -139,5 +138,3 @@ const updateCellInDatabase = async (id, newX, newY) => {
 
 
 export default GridComponentT2;
-
-//http://192.168.65.91/ProjetDMX/CodeDMX/getGrille.php?userId=12
