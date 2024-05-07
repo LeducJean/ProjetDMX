@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import './GridComponent.css';
+import './GridComponentT1.css';
 
-const GridComponent = () => {
+const GridComponentT1 = () => {
   const [gridData, setGridData] = useState([]);
   const [mode, setMode] = useState('studio');
   
@@ -77,7 +77,7 @@ const fetchDataFromAPI = async (userId) => {
   }
 };
 
-export default GridComponent;
+export default GridComponentT1;
 
 //[{"id":"1","idUser":"12","x":"1","y":"1","idScene":"3","requete_sql":""},{"id":"7","idUser":"12","x":"380","y":"343","idScene":"3","requete_sql":""},{"id":"3","idUser":"12","x":"3","y":"1","idScene":"5","requete_sql":""}]
 

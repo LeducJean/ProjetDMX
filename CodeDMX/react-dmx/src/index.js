@@ -3,12 +3,16 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import GridComponent from './composant/GridComponent';
+import GridComponentT1 from './composant/GridComponentT1';
+import GridComponentT2 from './composant/GridComponentT2';
+import GridComponentT3 from './composant/GridComponentT3';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <GridComponent />
+   {/*  <GridComponentT1 />  */}
+    <GridComponentT2 />
+   <GridComponentT3 />
   </React.StrictMode>
 );
 
