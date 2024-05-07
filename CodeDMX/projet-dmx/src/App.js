@@ -1,4 +1,4 @@
-/* import React from 'react';
+ import React from 'react';
 import './App.css';
 import StudiomodePage from './StudiomodePage';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
@@ -16,9 +16,9 @@ function App() {
 }
 
 export default App;
-*/
 
-import React from 'react';
+
+/*import React from 'react';
 import './App.css';
 import SQLTestPage from './SQLTestPage';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
