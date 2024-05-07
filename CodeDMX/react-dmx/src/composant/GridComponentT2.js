@@ -21,16 +21,16 @@ const GridComponentT2 = () => {
             alert(`Envoi de l'ID de la scène : ${cellData.idScene}, (${cellData.nom}) vers l'API`);
         }
     };
-    
+
 
     const handleCellDragStart = (event, cellId) => {
         // Rechercher l'ID de la donnée de grille associée à la cellule glissée
         console.log(gridData);
         console.log(cellId);
-    const draggedCellData = gridData.find(cell => cell.id === cellId);
-    if (draggedCellData) {
-      setDraggedGridDataId(draggedCellData.id); // Enregistrer l'ID de la donnée de grille associée à la cellule glissée
-    }
+        const draggedCellData = gridData.find(cell => cell.id === cellId);
+        if (draggedCellData) {
+            setDraggedGridDataId(draggedCellData.id); // Enregistrer l'ID de la donnée de grille associée à la cellule glissée
+        }
     };
 
     const handleCellDragOver = (event) => {
@@ -67,7 +67,7 @@ const GridComponentT2 = () => {
             const y = String(Math.floor(i / 3));
             const cellData = gridData.find(cell => parseInt(cell.x) === i % 3 && parseInt(cell.y) === Math.floor(i / 3));
             const sceneName = cellData ? cellData.nom : ''; // Nom de la scène
-            
+
             const cellClassName = `grid-cell ${cellData && cellData.onOff === "1" ? 'highlighted' : 's'}`; // Ajoute la classe 'highlighted' si onOff est égal à 1
 
             const cellId = `cell-${x}-${y}`;
@@ -83,7 +83,7 @@ const GridComponentT2 = () => {
                     onDragOver={(event) => handleCellDragOver(event)}
                     onDrop={(event) => handleCellDrop(event, cellId)}
                 >
-                    {sceneName} 
+                    {sceneName}
                 </div>
             );
         }
