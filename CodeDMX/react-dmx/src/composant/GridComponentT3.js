@@ -73,53 +73,12 @@ const GridComponentT3 = () => {
   };
 
 
-  const renderGrid = () => {
-      const gridItems = [];
-      for (let i = 0; i < 9; i++) {
-          const x = String(i % 3);
-          const y = String(Math.floor(i / 3));
-          const cellData = gridData.find(cell => parseInt(cell.x) === i % 3 && parseInt(cell.y) === Math.floor(i / 3));
-          const sceneName = cellData ? cellData.nom : ''; // Nom de la scène
-          
-          const cellClassName = `grid-cell ${cellData && cellData.onOff === "1" ? 'highlighted' : 's'}`; // Ajoute la classe 'highlighted' si onOff est égal à 1
-
-          const cellId = `cell-${x}-${y}`;
-
-          gridItems.push(
-              <div
-                  key={i}
-                  id={cellId}
-                  className={cellClassName}
-                  draggable={mode === 'configuration'} // Rendre les cellules glissables uniquement en mode configuration
-                  onClick={() => handleCellClick(cellData)}
-                  onDragStart={(event) => handleCellDragStart(event, cellData.id)}
-                  onDragOver={(event) => handleCellDragOver(event)}
-                  onDrop={(event) => handleCellDrop(event, cellId)}
-              >
-                  {sceneName} 
-              </div>
-          );
-      }
-      return gridItems;
-  };
 
   const toggleMode = () => {
       setMode(prevMode => (prevMode === 'studio' ? 'configuration' : 'studio'));
   };
 
   return (
-      <div>
-          <h2>Mode {mode === 'studio' ? 'Studio' : 'Configuration'}</h2>
-          <div className="grid-container" onDragOver={(event) => handleCellDragOver(event)} onDrop={(event) => handleCellDrop(event, 'grid-container')}>
-              {renderGrid()}
-          </div>
-          <button onClick={toggleMode}>Mode {mode === 'studio' ? 'Configuration' : 'Studio'}</button>
-          <div>
-      <div className="grid-container">
-        {/* Le contenu de la grille a été supprimé */}
-      </div>
-
-      {/* Section pour afficher la liste des scènes */}
       <div className="scene-list-container">
         <h3>Liste des Scènes</h3>
         <ul>
@@ -136,8 +95,6 @@ const GridComponentT3 = () => {
             </li>
           ))}
         </ul>
-      </div>
-    </div>
       </div>
   );
 };

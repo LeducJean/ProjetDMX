@@ -10,9 +10,9 @@ import GridComponentT3 from './composant/GridComponentT3';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-   {/*  <GridComponentT1 />  */}
+    {/*  <GridComponentT1 />  */}
     <GridComponentT2 />
-   <GridComponentT3 />
+    <GridComponentT3 />
   </React.StrictMode>
 );
 
