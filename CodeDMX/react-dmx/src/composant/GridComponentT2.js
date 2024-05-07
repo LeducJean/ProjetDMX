@@ -17,8 +17,11 @@ const GridComponentT2 = () => {
 
     const handleCellClick = (cellData) => {
         // Logique à exécuter lorsqu'une cellule est cliquée en mode studio
-        alert(`Envoi de l'ID de la scène : ${cellData.idScene}, (${cellData.nom}) vers l'API`);
+        if (mode === 'studio') {
+            alert(`Envoi de l'ID de la scène : ${cellData.idScene}, (${cellData.nom}) vers l'API`);
+        }
     };
+    
 
     const handleCellDragStart = (event, cellId) => {
         // Rechercher l'ID de la donnée de grille associée à la cellule glissée
