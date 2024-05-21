@@ -6,13 +6,16 @@ import reportWebVitals from './reportWebVitals';
 import GridComponentT1 from './composant/GridComponentT1';
 import GridComponentT2 from './composant/GridComponentT2';
 import GridComponentT3 from './composant/GridComponentT3';
+import GridComponentT4 from './composant/GridComponentT4';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     {/*  <GridComponentT1 />  */}
-    <GridComponentT2 />
-    <GridComponentT3 />
+     {/*  <GridComponentT2 />  */}
+      {/*  <GridComponentT3 />  */}
+   
+    <GridComponentT4 />
   </React.StrictMode>
 );
 

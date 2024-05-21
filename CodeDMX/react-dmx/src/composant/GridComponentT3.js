@@ -76,7 +76,7 @@ const GridComponentT3 = () => {
             onDragOver={(event) => handleCellDragOverList(event)}
             onDrop={(event) => handleCellDropList(event)}
           >
-            {scene.nom} - {scene.onOff === "1" ? "Activé" : "Désactivé"}
+            {scene.nom}
           </div>
         ))}
       </div>

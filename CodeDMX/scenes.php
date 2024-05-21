@@ -12,7 +12,14 @@ require_once('obj/connexionBdd.php');
 
 try {
     // Requête SQL pour récupérer les données de la table 'scene'
-    $sql = 'SELECT * FROM scene';
+    $sql = 'SELECT 
+    id, 
+    0 AS x, 
+    0 AS y, 
+    nom 
+FROM 
+    scene ';
+ 
     $stmt = $pdo->query($sql);
     $scenes = $stmt->fetchAll(PDO::FETCH_ASSOC);
 

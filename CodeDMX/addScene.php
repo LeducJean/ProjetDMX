@@ -14,15 +14,16 @@ if (isset($_GET["id"])) {
     require_once ('obj/connexionBdd.php');
 
     // Récupération des données depuis la requête GET
-    $idLightBoard = $_GET['id'];
+    $idScene = $_GET['idScene'];
     $newX = $_GET['x'];
-    $newY = $_GET['y']; 
+    $newY = $_GET['y'];
+    $idUser = $_GET['idUser'];
 
     try {
         // Requête SQL pour mettre à jour la position de la scène
-        $sql = "UPDATE lightBoard SET x = ?, y = ? WHERE id = ?";
+        $sql = "INSERT INTO `lightBoard`(`idUser`, `x`, `y`, `idScene`) VALUES (?,?,?,?)";
         $stmt = $pdo->prepare($sql);
-        $stmt->execute([$newX, $newY, $idLightBoard]);
+        $stmt->execute([$idUser, $newX, $newY, $idScene]);
 
         // Réponse JSON indiquant que la mise à jour a réussi
         echo json_encode(array("message" => "Position de la scène mise à jour avec succès"));
@@ -37,4 +38,5 @@ if (isset($_GET["id"])) {
     // Si la méthode de requête n'est pas GET, renvoyer une erreur JSON
     echo json_encode(array("error" => "Méthode de requête non autorisée. Seules les requêtes GET sont acceptées."));
 }
+
 ?>
