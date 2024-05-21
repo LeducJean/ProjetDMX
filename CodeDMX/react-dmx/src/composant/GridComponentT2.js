@@ -19,6 +19,8 @@ const GridComponentT2 = () => {
         // Logique à exécuter lorsqu'une cellule est cliquée en mode studio
         if (mode === 'studio') {
             alert(`Envoi de l'ID de la scène : ${cellData.idScene}, (${cellData.nom}) vers l'API`);
+            //websocket
+            
         }
     };
 
