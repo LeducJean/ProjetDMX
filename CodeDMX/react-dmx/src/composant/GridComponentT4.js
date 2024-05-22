@@ -39,7 +39,7 @@ const GridComponentT4 = () => {
     const handleCellClick = (cellData) => {
         if (mode === 'studio' && cellData) {
             if (webSocket.current && webSocket.current.readyState === WebSocket.OPEN) {
-                alert(`Envoi de l'ID de la scène : ${cellData.idScene}, (${cellData.nom}) vers l'API`);
+                //alert(`Envoi de l'ID de la scène : ${cellData.idScene}, (${cellData.nom}) vers l'API`);
                 webSocket.current.send(cellData.idScene);
             } else {
                 console.error('WebSocket connection is not open');
@@ -60,17 +60,23 @@ const GridComponentT4 = () => {
 
     const handleCellDrop = async (event, targetCellId) => {
         event.preventDefault();
-        const targetX = targetCellId.split('-')[1];
-        const targetY = targetCellId.split('-')[2];
 
-        if (![0, 1, 2].includes(parseInt(targetX)) || ![0, 1, 2].includes(parseInt(targetY))) {
-            return;
-        }
+        // Vérifier si l'élément est glissé sur la zone de la liste des scènes
+        if (targetCellId === 'scene-list-container' && draggedGridDataId !== null) {
+            await deleteSceneFromLightBoard(draggedGridDataId);
+        } else {
+            const targetX = targetCellId.split('-')[1];
+            const targetY = targetCellId.split('-')[2];
 
-        if (draggedGridDataId !== null) {
-            await updateCellInDatabase(draggedGridDataId, targetX, targetY);
-        } else if (idNewScene !== null) {
-            await addSceneOnLightBoard(idNewScene, targetX, targetY, idUser);
+            if (![0, 1, 2].includes(parseInt(targetX)) || ![0, 1, 2].includes(parseInt(targetY))) {
+                return;
+            }
+
+            if (draggedGridDataId !== null) {
+                await updateCellInDatabase(draggedGridDataId, targetX, targetY);
+            } else if (idNewScene !== null) {
+                await addSceneOnLightBoard(idNewScene, targetX, targetY, idUser);
+            }
         }
 
         fetchDataFromAPI(idUser).then(data => {
@@ -121,7 +127,12 @@ const GridComponentT4 = () => {
         <div>
             <h2>Mode {mode === 'studio' ? 'Studio' : 'Configuration'}</h2>
             {mode === 'configuration' && (
-                <div className="scene-list-container">
+                <div
+                    id="scene-list-container"
+                    className="scene-list-container"
+                    onDragOver={(event) => handleCellDragOver(event)}
+                    onDrop={(event) => handleCellDrop(event, 'scene-list-container')}
+                >
                     <h3>Liste des Scènes</h3>
                     <div className="scene-scroll-container">
                         {scenes.map(scene => (
@@ -209,6 +220,25 @@ const addSceneOnLightBoard = async (idScene, newX, newY, idUser) => {
         console.log('Scene added to lightboard successfully');
     } catch (error) {
         console.error('Error adding scene to lightboard:', error);
+    }
+};
+
+const deleteSceneFromLightBoard = async (id, userId, idScene) => {
+    try {
+        const response = await fetch(`http://192.168.65.91/ProjetDMX/CodeDMX/deleteScene.php?id=${id}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+
+        if (!response.ok) {
+            throw new Error('Failed to delete scene from lightboard');
+        }
+
+        console.log('Scene deleted from lightboard successfully');
+    } catch (error) {
+        console.error('Error deleting scene from lightboard:', error);
     }
 };
 
