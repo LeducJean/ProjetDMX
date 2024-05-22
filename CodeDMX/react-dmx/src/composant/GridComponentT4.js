@@ -11,11 +11,11 @@ const GridComponentT4 = () => {
     const [scenes, setScenes] = useState([]);
 
     useEffect(() => {
-        setUser(12);
+        setUser(12); // Setting user ID to 12
         fetchDataFromAPI(idUser).then(data => {
             setGridData(data);
         });
-        fetchSceneFromAPI(idUser).then(data => {
+        fetchSceneFromAPI().then(data => {
             setScenes(data);
         });
 
@@ -60,9 +60,8 @@ const GridComponentT4 = () => {
 
     const handleCellDrop = async (event, targetCellId) => {
         event.preventDefault();
-        const draggedCellId = event.dataTransfer.getData('text/plain');
-        const targetX = targetCellId[5];
-        const targetY = targetCellId[7];
+        const targetX = targetCellId.split('-')[1];
+        const targetY = targetCellId.split('-')[2];
 
         if (![0, 1, 2].includes(parseInt(targetX)) || ![0, 1, 2].includes(parseInt(targetY))) {
             return;
@@ -70,13 +69,11 @@ const GridComponentT4 = () => {
 
         if (draggedGridDataId !== null) {
             await updateCellInDatabase(draggedGridDataId, targetX, targetY);
-        }
-
-        if (draggedGridDataId === null) {
+        } else if (idNewScene !== null) {
             await addSceneOnLightBoard(idNewScene, targetX, targetY, idUser);
         }
 
-        fetchDataFromAPI(12).then(data => {
+        fetchDataFromAPI(idUser).then(data => {
             setGridData(data);
         });
     };
@@ -130,7 +127,7 @@ const GridComponentT4 = () => {
                         {scenes.map(scene => (
                             <div
                                 key={scene.id}
-                                id='cell-0-0'
+                                id={`scene-${scene.id}`}
                                 className="grid-cell"
                                 draggable={mode === 'configuration'}
                                 onDragStart={(event) => handleCellDragStartList(event, scene.id)}
@@ -149,7 +146,7 @@ const GridComponentT4 = () => {
     );
 };
 
-const fetchSceneFromAPI = async (userId) => {
+const fetchSceneFromAPI = async () => {
     try {
         const response = await fetch(`http://192.168.65.91/ProjetDMX/CodeDMX/scenes.php`);
         if (!response.ok) {
@@ -206,12 +203,12 @@ const addSceneOnLightBoard = async (idScene, newX, newY, idUser) => {
         });
 
         if (!response.ok) {
-            throw new Error('Failed to update cell in database');
+            throw new Error('Failed to add scene to lightboard');
         }
 
-        console.log('Cell updated in database successfully');
+        console.log('Scene added to lightboard successfully');
     } catch (error) {
-        console.error('Error updating cell in database:', error);
+        console.error('Error adding scene to lightboard:', error);
     }
 };
 
