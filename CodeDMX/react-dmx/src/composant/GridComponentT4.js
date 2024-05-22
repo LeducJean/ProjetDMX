@@ -60,8 +60,7 @@ const GridComponentT4 = () => {
                 console.error('WebSocket connection is not open');
             }
         }
-    };    
-
+    };
 
     const handleCellDragStart = (event, cellId) => {
         const draggedCellData = gridData.find(cell => cell.id === cellId);
