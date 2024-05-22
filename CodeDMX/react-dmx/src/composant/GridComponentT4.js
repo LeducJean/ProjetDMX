@@ -39,13 +39,29 @@ const GridComponentT4 = () => {
     const handleCellClick = (cellData) => {
         if (mode === 'studio' && cellData) {
             if (webSocket.current && webSocket.current.readyState === WebSocket.OPEN) {
-                //alert(`Envoi de l'ID de la scène : ${cellData.idScene}, (${cellData.nom}) vers l'API`);
+                // Envoyer l'ID de la scène au serveur WebSocket
                 webSocket.current.send(cellData.idScene);
+    
+                // Mettre à jour la base de données pour mettre onOff à 1 pour l'ID de la lightBoard
+                // et mettre à 0 pour tous les autres pour cet ID utilisateur
+                updateOnOffInDatabase(cellData.id, idUser)
+                    .then(() => {
+                        console.log('onOff updated successfully');
+    
+                        // Rafraîchir la grille après la mise à jour de la base de données
+                        fetchDataFromAPI(idUser).then(data => {
+                            setGridData(data);
+                        });
+                    })
+                    .catch(error => {
+                        console.error('Error updating onOff:', error);
+                    });
             } else {
                 console.error('WebSocket connection is not open');
             }
         }
-    };
+    };    
+
 
     const handleCellDragStart = (event, cellId) => {
         const draggedCellData = gridData.find(cell => cell.id === cellId);
@@ -223,7 +239,7 @@ const addSceneOnLightBoard = async (idScene, newX, newY, idUser) => {
     }
 };
 
-const deleteSceneFromLightBoard = async (id, userId, idScene) => {
+const deleteSceneFromLightBoard = async (id) => {
     try {
         const response = await fetch(`http://192.168.65.91/ProjetDMX/CodeDMX/deleteScene.php?id=${id}`, {
             method: 'GET',
@@ -241,5 +257,23 @@ const deleteSceneFromLightBoard = async (id, userId, idScene) => {
         console.error('Error deleting scene from lightboard:', error);
     }
 };
+
+const updateOnOffInDatabase = async (cellId, idUser) => {
+    try {
+        const response = await fetch(`http://192.168.65.91/ProjetDMX/CodeDMX/updateOnOff.php?id=${cellId}&idUser=${idUser}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+
+        if (!response.ok) {
+            throw new Error('Failed to update onOff in database');
+        }
+    } catch (error) {
+        throw new Error('Error updating onOff in database:', error);
+    }
+};
+
 
 export default GridComponentT4;
