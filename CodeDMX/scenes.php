@@ -8,24 +8,22 @@ header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE");
 header("Access-Control-Allow-Headers: Content-Type, Authorization");
 
 // Inclusion du fichier de connexion à la base de données
-require_once('obj/connexionBdd.php');
+require_once ('obj/connexionBdd.php');
+
+$idUser = $_GET['userId'];
 
 try {
-    // Requête SQL pour récupérer les données de la table 'scene'
-    $sql = 'SELECT 
-    id, 
-    0 AS x, 
-    0 AS y, 
-    nom 
-FROM 
-    scene ';
- 
-    $stmt = $pdo->query($sql);
-    $scenes = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    // Requête SQL pour sélectionner toutes les lignes sauf celles où idUser = $idUser
+    $sql = "SELECT id, nom FROM scene WHERE id NOT IN (SELECT idScene FROM lightBoard WHERE idUser = ?)";
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute([$idUser]);
 
-    // Renvoi des données au format JSON
-    echo json_encode($scenes);
-} catch(PDOException $e) {
+    // Récupérer tous les résultats
+    $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    // Réponse JSON avec les résultats
+    echo json_encode($results);
+} catch (PDOException $e) {
     echo 'Erreur : ' . $e->getMessage();
 }
 

@@ -41,13 +41,13 @@ const GridComponentT6 = () => {
             if (webSocket.current && webSocket.current.readyState === WebSocket.OPEN) {
                 // Envoyer l'ID de la scène au serveur WebSocket
                 webSocket.current.send(cellData.idScene);
-    
+
                 // Mettre à jour la base de données pour mettre onOff à 1 pour l'ID de la lightBoard
                 // et mettre à 0 pour tous les autres pour cet ID utilisateur
                 updateOnOffInDatabase(cellData.id, idUser)
                     .then(() => {
                         console.log('onOff updated successfully');
-    
+
                         // Rafraîchir la grille après la mise à jour de la base de données
                         fetchDataFromAPI(idUser).then(data => {
                             setGridData(data);
@@ -78,7 +78,7 @@ const GridComponentT6 = () => {
 
         // Vérifier si l'élément est glissé sur la zone de la liste des scènes
         if (targetCellId === 'scene-list-container' && draggedGridDataId !== null) {
-            await deleteSceneFromLightBoard(draggedGridDataId);
+            await deleteSceneFromLightBoard(draggedGridDataId, setScenes);
         } else {
             const targetX = targetCellId.split('-')[1];
             const targetY = targetCellId.split('-')[2];
@@ -90,7 +90,7 @@ const GridComponentT6 = () => {
             if (draggedGridDataId !== null) {
                 await updateCellInDatabase(draggedGridDataId, targetX, targetY, idUser);
             } else if (idNewScene !== null) {
-                await addSceneOnLightBoard(idNewScene, targetX, targetY, idUser);
+                await addSceneOnLightBoard(idNewScene, targetX, targetY, idUser, setScenes);
             }
         }
 
@@ -199,9 +199,9 @@ const GridComponentT6 = () => {
     );
 };
 
-const fetchSceneFromAPI = async () => {
+const fetchSceneFromAPI = async (userId) => {
     try {
-        const response = await fetch(`http://192.168.65.91/ProjetDMX/CodeDMX/scenes.php`);
+        const response = await fetch(`http://192.168.65.91/ProjetDMX/CodeDMX/scenes.php?userId=${userId}`);
         if (!response.ok) {
             throw new Error('Failed to fetch data from API');
         }
@@ -246,7 +246,7 @@ const updateCellInDatabase = async (idScene, newX, newY, idUser) => {
     }
 };
 
-const addSceneOnLightBoard = async (idScene, newX, newY, idUser) => {
+const addSceneOnLightBoard = async (idScene, newX, newY, idUser, setScenes) => {
     try {
         const response = await fetch(`http://192.168.65.91/ProjetDMX/CodeDMX/addScene.php?idUser=${idUser}&idScene=${idScene}&x=${newX}&y=${newY}`, {
             method: 'GET',
@@ -260,12 +260,17 @@ const addSceneOnLightBoard = async (idScene, newX, newY, idUser) => {
         }
 
         console.log('Scene added to lightboard successfully');
+
+        // Rafraîchir la liste des scènes après l'ajout
+        fetchSceneFromAPI(idUser).then(data => {
+            setScenes(data);
+        });        
     } catch (error) {
         console.error('Error adding scene to lightboard:', error);
     }
 };
 
-const deleteSceneFromLightBoard = async (id) => {
+const deleteSceneFromLightBoard = async (id, idUser, setScenes) => {
     try {
         const response = await fetch(`http://192.168.65.91/ProjetDMX/CodeDMX/deleteScene.php?id=${id}`, {
             method: 'GET',
@@ -279,6 +284,11 @@ const deleteSceneFromLightBoard = async (id) => {
         }
 
         console.log('Scene deleted from lightboard successfully');
+
+        // Rafraîchir la liste des scènes après la suppression
+        fetchSceneFromAPI(idUser).then(data => {
+            setScenes(data);
+        });
     } catch (error) {
         console.error('Error deleting scene from lightboard:', error);
     }

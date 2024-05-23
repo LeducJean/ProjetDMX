@@ -19,13 +19,37 @@ if (isset($_GET["idUser"])) {
     $idUser = $_GET['idUser'];
 
     try {
-        // Requête SQL pour insérer une nouvelle scène
-        $sql = "INSERT INTO `lightBoard`(`idUser`, `x`, `y`, `idScene`) VALUES (?,?,?,?)";
-        $stmt = $pdo->prepare($sql);
-        $stmt->execute([$idUser, $newX, $newY, $idScene]);
+        // Requête SQL pour sélectionner l'id où x et y sont égaux à newX et newY
+        $sqlSelect = "SELECT id FROM lightBoard WHERE idUser = ? AND x = ? AND y = ?";
+        $stmtSelect = $pdo->prepare($sqlSelect);
+        $stmtSelect->execute([$idUser, $newX, $newY]);
 
-        // Réponse JSON indiquant que l'insertion a réussi
-        echo json_encode(array("message" => "Position de la scène ajoutée avec succès"));
+        // Récupérer le résultat
+        $result = $stmtSelect->fetch(PDO::FETCH_ASSOC);
+
+        if ($result) {
+            $selectedId = $result['id'];
+
+            $sql = "DELETE FROM lightBoard WHERE id = ?";
+            $stmt = $pdo->prepare($sql);
+            $stmt->execute([$selectedId]);
+
+            // Requête SQL pour insérer une nouvelle scène
+            $sql = "INSERT INTO `lightBoard`(`idUser`, `x`, `y`, `idScene`) VALUES (?,?,?,?)";
+            $stmt = $pdo->prepare($sql);
+            $stmt->execute([$idUser, $newX, $newY, $idScene]);
+
+            // Réponse JSON indiquant que l'insertion a réussi
+            echo json_encode(array("message" => "Position de la scène ajoutée avec succès"));
+        } else {
+            // Requête SQL pour insérer une nouvelle scène
+            $sql = "INSERT INTO `lightBoard`(`idUser`, `x`, `y`, `idScene`) VALUES (?,?,?,?)";
+            $stmt = $pdo->prepare($sql);
+            $stmt->execute([$idUser, $newX, $newY, $idScene]);
+
+            // Réponse JSON indiquant que l'insertion a réussi
+            echo json_encode(array("message" => "Position de la scène ajoutée avec succès"));
+        }
     } catch (PDOException $e) {
         // En cas d'erreur, renvoyer un message d'erreur JSON
         echo json_encode(array("error" => "Erreur lors de l'ajout de la scène : " . $e->getMessage()));

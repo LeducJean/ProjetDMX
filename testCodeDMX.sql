@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : localhost
--- Généré le : mar. 07 mai 2024 à 15:04
+-- Généré le : jeu. 23 mai 2024 à 14:53
 -- Version du serveur : 10.5.21-MariaDB-0+deb11u1
 -- Version de PHP : 7.4.33
 
@@ -38,10 +38,6 @@ CREATE TABLE `canaux` (
 --
 
 INSERT INTO `canaux` (`numCanal`, `idScene`, `valeur`) VALUES
-(7, 7, 45),
-(8, 7, 78),
-(9, 7, 415),
-(10, 7, 12),
 (7, 6, 78),
 (8, 6, 45),
 (9, 6, 12),
@@ -50,76 +46,7 @@ INSERT INTO `canaux` (`numCanal`, `idScene`, `valeur`) VALUES
 (5, 6, 78),
 (6, 6, 12),
 (7, 6, 36),
-(8, 9, 78),
-(9, 9, 45),
-(10, 9, 12),
-(11, 9, 36),
-(4, 7, 45),
-(5, 7, 78),
-(6, 7, 12),
-(7, 7, 56),
-(8, 8, 78),
-(9, 8, 12),
-(10, 8, 45),
-(11, 8, 56),
-(34, 9, 1),
-(35, 9, 1),
-(36, 9, 1),
-(37, 9, 1),
-(34, 9, 45),
-(35, 9, 4),
-(36, 9, 1),
-(37, 9, 2),
 (32, 2, 255),
-(4, 9, 12),
-(5, 9, 45),
-(6, 9, 78),
-(7, 9, 56),
-(135, 13, 150),
-(136, 13, 100),
-(65, 11, 97),
-(101, 10, 65),
-(1, 8, 16),
-(1, 11, 78),
-(1, 11, 45),
-(121, 10, 45),
-(125, 8, 78),
-(120, 9, 45),
-(121, 9, 78),
-(32, 8, 45),
-(33, 8, 78),
-(34, 8, 95),
-(35, 8, 26),
-(36, 8, 12),
-(37, 8, 3),
-(110, 9, 45),
-(111, 9, 45),
-(2, 11, 12),
-(3, 11, 12),
-(2, 11, 78),
-(3, 11, 12),
-(5, 11, 78),
-(6, 11, 45),
-(7, 11, 12),
-(8, 11, 0),
-(9, 11, 142),
-(10, 11, 45),
-(105, 8, 45),
-(106, 8, 12),
-(100, 9, 45),
-(101, 9, 78),
-(110, 11, 45),
-(111, 11, 78),
-(105, 9, 25),
-(106, 9, 24),
-(32, 9, 12),
-(33, 9, 45),
-(34, 9, 12),
-(35, 9, 45),
-(36, 9, 12),
-(37, 9, 45),
-(105, 4, 25),
-(106, 4, 12),
 (4, 4, 45),
 (5, 4, 12),
 (6, 4, 56),
@@ -130,8 +57,6 @@ INSERT INTO `canaux` (`numCanal`, `idScene`, `valeur`) VALUES
 (35, 4, 23),
 (36, 4, 12),
 (37, 4, 10),
-(105, 6, 12),
-(106, 6, 45),
 (4, 6, 40),
 (5, 6, 12),
 (6, 6, 45),
@@ -146,14 +71,10 @@ INSERT INTO `canaux` (`numCanal`, `idScene`, `valeur`) VALUES
 (9, 4, 12),
 (10, 4, 56),
 (11, 4, 2),
-(105, 7, 255),
-(106, 7, 255),
 (4, 42, 12),
 (5, 42, 78),
 (6, 42, 56),
 (7, 42, 1),
-(105, 43, 12),
-(106, 43, 45),
 (4, 43, 40),
 (5, 43, 12),
 (6, 43, 45),
@@ -187,7 +108,65 @@ INSERT INTO `canaux` (`numCanal`, `idScene`, `valeur`) VALUES
 (12, 46, 0),
 (13, 46, 0),
 (14, 46, 255),
-(15, 46, 0);
+(15, 46, 0),
+(4, 5, 255),
+(5, 5, 0),
+(6, 5, 0),
+(7, 5, 0),
+(8, 5, 0),
+(9, 5, 255),
+(10, 5, 0),
+(11, 5, 0),
+(12, 5, 0),
+(13, 5, 0),
+(14, 5, 255),
+(15, 5, 0),
+(201, 86, 255),
+(202, 86, 0),
+(210, 86, 24),
+(211, 86, 0),
+(215, 90, 24),
+(216, 90, 2),
+(16, 91, 255),
+(17, 91, 255),
+(18, 91, 255),
+(19, 91, 0),
+(20, 91, 0),
+(21, 91, 0),
+(22, 91, 0),
+(23, 91, 0),
+(4, 91, 0),
+(5, 91, 255),
+(6, 91, 0),
+(7, 91, 0),
+(8, 91, 0),
+(9, 91, 0),
+(10, 91, 255),
+(11, 91, 0),
+(12, 91, 0),
+(13, 91, 0),
+(14, 91, 0),
+(15, 91, 255),
+(16, 91, 12),
+(17, 91, 45),
+(18, 91, 12),
+(19, 91, 26),
+(20, 91, 12),
+(21, 91, 255),
+(22, 91, 0),
+(23, 91, 0),
+(4, 91, 255),
+(5, 91, 0),
+(6, 91, 0),
+(7, 91, 0),
+(8, 91, 0),
+(9, 91, 255),
+(10, 91, 0),
+(11, 91, 0),
+(12, 91, 0),
+(13, 91, 0),
+(14, 91, 255),
+(15, 91, 0);
 
 -- --------------------------------------------------------
 
@@ -207,9 +186,6 @@ CREATE TABLE `champ` (
 --
 
 INSERT INTO `champ` (`id`, `idEquip`, `idNumCanal`, `nom`) VALUES
-(1, 1, 1, 'rouge'),
-(2, 1, 2, 'vert'),
-(3, 1, 3, 'bleu'),
 (4, 6, 4, 'rouge'),
 (5, 6, 5, 'vert'),
 (6, 6, 6, 'bleu'),
@@ -242,23 +218,23 @@ INSERT INTO `champ` (`id`, `idEquip`, `idNumCanal`, `nom`) VALUES
 (46, 13, 81, 'blanc'),
 (73, 34, 135, 'rouge'),
 (74, 34, 136, 'vert'),
-(75, 35, 55, 'rouge'),
-(76, 35, 56, 'vert'),
-(77, 35, 57, 'bleu'),
-(78, 35, 58, 'blanc'),
 (79, 36, 65, 'rouge'),
 (80, 37, 100, 'rouge'),
 (81, 37, 101, 'vert'),
-(82, 38, 105, 'rouge'),
-(83, 38, 106, 'vert'),
-(84, 39, 110, '48'),
-(85, 39, 111, '45'),
-(86, 40, 115, 'rouge'),
-(87, 40, 116, 'vert'),
 (88, 41, 120, 'rouge'),
 (89, 41, 121, 'vert'),
 (90, 42, 125, 'rouge'),
-(91, 42, 126, 'vert');
+(91, 42, 126, 'vert'),
+(105, 140, 156, ''),
+(107, 141, 185, 'vbtrb'),
+(108, 141, 186, 'iumolulu'),
+(109, 142, 201, 'rouge'),
+(110, 142, 202, 'vert'),
+(111, 143, 206, 'blanc'),
+(113, 144, 210, 'violle'),
+(114, 144, 211, 'zgzethz'),
+(115, 145, 215, 'rouge'),
+(116, 145, 216, 'vert');
 
 -- --------------------------------------------------------
 
@@ -278,7 +254,6 @@ CREATE TABLE `equipement` (
 --
 
 INSERT INTO `equipement` (`id`, `nom`, `adresse`, `nbCanal`) VALUES
-(1, 'lampe44', 1, 3),
 (6, 'saber1', 4, 4),
 (7, 'saber2', 8, 4),
 (8, 'saber3', 12, 4),
@@ -286,15 +261,16 @@ INSERT INTO `equipement` (`id`, `nom`, `adresse`, `nbCanal`) VALUES
 (11, 'TWIST 152', 32, 6),
 (13, 'coucou', 78, 4),
 (34, 'fauqtin', 135, 2),
-(35, 'dodo', 55, 4),
 (36, 'didi', 65, 1),
 (37, 'okok', 100, 2),
-(38, 'oki', 105, 2),
-(39, 'okii', 110, 2),
-(40, 'okiii', 115, 2),
 (41, 'tomtom', 120, 2),
 (42, 'tommeeee', 126, 3),
-(116, 'rhfdth', 32, 2);
+(140, 'stnhre', 155, 2),
+(141, 'zrghrzhbz', 184, 2),
+(142, 'faustinnnnnnn', 200, 2),
+(143, 'tibowwwww', 205, 2),
+(144, 'tibowwwczeveaz', 210, 2),
+(145, 'jeann', 215, 2);
 
 -- --------------------------------------------------------
 
@@ -316,16 +292,10 @@ CREATE TABLE `lightBoard` (
 --
 
 INSERT INTO `lightBoard` (`id`, `idUser`, `x`, `y`, `onOff`, `idScene`) VALUES
-(1, 12, 0, 2, 0, 1),
-(2, 4, 0, 1, 0, 4),
-(3, 12, 0, 1, 0, 5),
 (4, 14, 0, 0, 0, 1),
-(5, 5, 0, 0, 0, 2),
-(6, 7, 0, 0, 0, 3),
-(7, 12, 0, 0, 0, 3),
-(8, 3, 0, 1, 0, 4),
-(9, 3, 0, 0, 0, 3),
-(10, 4, 0, 0, 0, 1);
+(436, 12, 0, 0, 1, 45),
+(438, 12, 1, 0, 0, 4),
+(440, 12, 0, 1, 0, 90);
 
 -- --------------------------------------------------------
 
@@ -343,8 +313,9 @@ CREATE TABLE `scene` (
 --
 
 INSERT INTO `scene` (`id`, `nom`) VALUES
-(12, 'caca'),
-(83, 'damienTest'),
+(91, '2saber+ghost'),
+(86, 'faustincoucou'),
+(90, 'jean'),
 (2, 'laSceneBleue'),
 (5, 'laSceneMusicale'),
 (3, 'laSceneRouge'),
@@ -352,19 +323,11 @@ INSERT INTO `scene` (`id`, `nom`) VALUES
 (45, 'saber1bleu'),
 (44, 'saber1juste'),
 (6, 'SceneConcentre'),
-(8, 'SceneDisco'),
-(10, 'SceneFamille'),
-(9, 'SceneFin'),
-(7, 'SceneFolie'),
 (1, 'studio'),
 (42, 'testdunescene'),
 (43, 'testdunescene2'),
-(13, 'testfauqtin'),
-(16, 'testtesttest'),
-(11, 'toilette'),
-(46, 'tomLeCon'),
-(14, 'tomlopette'),
-(15, 'tomtom');
+(87, 'tibowww'),
+(46, 'tomLeCon');
 
 -- --------------------------------------------------------
 
@@ -462,25 +425,25 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT pour la table `champ`
 --
 ALTER TABLE `champ`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=102;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=117;
 
 --
 -- AUTO_INCREMENT pour la table `equipement`
 --
 ALTER TABLE `equipement`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=117;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=146;
 
 --
 -- AUTO_INCREMENT pour la table `lightBoard`
 --
 ALTER TABLE `lightBoard`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=441;
 
 --
 -- AUTO_INCREMENT pour la table `scene`
 --
 ALTER TABLE `scene`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=84;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=92;
 
 --
 -- AUTO_INCREMENT pour la table `user`
