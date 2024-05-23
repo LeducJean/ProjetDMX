@@ -78,7 +78,7 @@ const GridComponentT6 = () => {
 
         // Vérifier si l'élément est glissé sur la zone de la liste des scènes
         if (targetCellId === 'scene-list-container' && draggedGridDataId !== null) {
-            await deleteSceneFromLightBoard(draggedGridDataId, setScenes);
+            await deleteSceneFromLightBoard(draggedGridDataId, idUser, setScenes);
         } else {
             const targetX = targetCellId.split('-')[1];
             const targetY = targetCellId.split('-')[2];
