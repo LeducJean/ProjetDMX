@@ -15,7 +15,7 @@ const GridComponentT6 = () => {
         fetchDataFromAPI(idUser).then(data => {
             setGridData(data);
         });
-        fetchSceneFromAPI().then(data => {
+        fetchSceneFromAPI(idUser).then(data => {
             setScenes(data);
         });
 
@@ -199,9 +199,9 @@ const GridComponentT6 = () => {
     );
 };
 
-const fetchSceneFromAPI = async (userId) => {
+const fetchSceneFromAPI = async (idUser) => {
     try {
-        const response = await fetch(`http://192.168.65.91/ProjetDMX/CodeDMX/scenes.php?userId=${userId}`);
+        const response = await fetch(`http://192.168.65.91/ProjetDMX/CodeDMX/scenes.php?userId=${idUser}`);
         if (!response.ok) {
             throw new Error('Failed to fetch data from API');
         }
