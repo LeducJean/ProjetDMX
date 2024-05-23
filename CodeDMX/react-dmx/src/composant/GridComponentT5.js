@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
-import './GridComponentT4.css';
+import './GridComponentT5.css';
 
-const GridComponentT4 = () => {
+const GridComponentT5 = () => {
     const [gridData, setGridData] = useState([]);
     const [mode, setMode] = useState('studio');
     const [idUser, setUser] = useState(12);
@@ -227,9 +227,9 @@ const fetchDataFromAPI = async (userId) => {
     }
 };
 
-const updateCellInDatabase = async (id, newX, newY) => {
+const updateCellInDatabase = async (id, newX, newY, idUser) => {
     try {
-        const response = await fetch(`http://192.168.65.91/ProjetDMX/CodeDMX/updatePosition.php?id=${id}&x=${newX}&y=${newY}`, {
+        const response = await fetch(`http://192.168.65.91/ProjetDMX/CodeDMX/updatePosition.php?idUser=${idUser}&id=${id}&x=${newX}&y=${newY}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -301,4 +301,4 @@ const updateOnOffInDatabase = async (cellId, idUser) => {
     }
 };
 
-export default GridComponentT4;
+export default GridComponentT5;
