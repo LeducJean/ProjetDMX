@@ -71,7 +71,7 @@ const GridComponentT2 = () => {
         }
 
         // Mettre à jour la cellule dans la base de données
-        await updateCellInDatabase(draggedGridDataId, targetX, targetY);
+        await updateCellInDatabase(draggedGridDataId, targetX, targetY, idUser);
 
         // Si nécessaire, recharger la grille avec les nouvelles données
         fetchDataFromAPI(12).then(data => {
@@ -139,9 +139,9 @@ const fetchDataFromAPI = async (userId) => {
     }
 };
 
-const updateCellInDatabase = async (id, newX, newY) => {
+const updateCellInDatabase = async (idScene, newX, newY, idUser) => {
     try {
-        const response = await fetch(`http://192.168.65.91/ProjetDMX/CodeDMX/updatePosition.php?id=${id}&x=${newX}&y=${newY}`, {
+        const response = await fetch(`http://192.168.65.91/ProjetDMX/CodeDMX/updatePosition.php?idUser=${idUser}&idScene=${idScene}&x=${newX}&y=${newY}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',

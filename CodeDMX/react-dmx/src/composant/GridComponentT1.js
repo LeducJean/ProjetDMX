@@ -4,8 +4,6 @@ import './GridComponentT1.css';
 const GridComponentT1 = () => {
   const [gridData, setGridData] = useState([]);
   const [mode, setMode] = useState('studio');
-  
-
 
   useEffect(() => {
     fetchDataFromAPI(12).then(data => {

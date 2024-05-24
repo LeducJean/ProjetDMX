@@ -37,17 +37,17 @@ const GridComponentT8 = () => {
     }, [idUser]);
 
     const handleCellClick = (cellData) => {
-        if (mode === 'studio' && cellData) {
+        if (mode === 'studio' && cellData && cellData.idScene) {
             if (webSocket.current && webSocket.current.readyState === WebSocket.OPEN) {
                 // Envoyer l'ID de la scène au serveur WebSocket
                 webSocket.current.send(JSON.stringify({ idScene: cellData.idScene }));
-
+    
                 // Mettre à jour la base de données pour mettre onOff à 1 pour l'ID de la lightBoard
                 // et mettre à 0 pour tous les autres pour cet ID utilisateur
                 updateOnOffInDatabase(cellData.id, idUser)
                     .then(() => {
                         console.log('onOff updated successfully');
-
+    
                         // Rafraîchir la grille après la mise à jour de la base de données
                         fetchDataFromAPI(idUser).then(data => {
                             setGridData(data);
@@ -59,8 +59,10 @@ const GridComponentT8 = () => {
             } else {
                 console.error('WebSocket connection is not open');
             }
+        } else {
+            console.error('Invalid cellData or missing idScene');
         }
-    };
+    };    
 
     const handleCellDragStart = (event, cellId) => {
         const draggedCellData = gridData.find(cell => cell.id === cellId);
@@ -113,7 +115,7 @@ const GridComponentT8 = () => {
             const cellData = gridData.find(cell => parseInt(cell.x) === i % 3 && parseInt(cell.y) === Math.floor(i / 3));
             const sceneName = cellData ? cellData.nom : '';
 
-            const cellClassName = `grid-cell ${cellData && cellData.onOff === "1" ? 'highlighted' : 's'}`;
+            const cellClassName = `grid-cell ${cellData && cellData.onOff === "1" ? 'highlighted' : ''}`;
 
             const cellId = `cell-${x}-${y}`;
 
@@ -165,11 +167,17 @@ const GridComponentT8 = () => {
 
     const handleDeleteAllLightBoards = async () => {
         await deleteAllLightBoards();
+        // Mettre à jour la liste des scènes après la suppression
+        fetchSceneFromAPI(idUser).then(data => {
+            setScenes(data);
+        });
     };
 
     return (
-        <div>
-            <h2>Mode {mode === 'studio' ? 'Studio' : 'Configuration'}</h2>
+        <div className="container">
+            <div className="mode-title">
+                Mode {mode === 'studio' ? 'Studio' : 'Configuration'}
+            </div>
             {mode === 'configuration' && (
                 <div
                     id="scene-list-container"
@@ -205,7 +213,9 @@ const GridComponentT8 = () => {
                     🗑️
                 </div>
             )}
-            <button onClick={toggleMode}>Mode {mode === 'studio' ? 'Configuration' : 'Studio'}</button>
+            <button className="mode-button" onClick={toggleMode}>
+                Mode {mode === 'studio' ? 'Configuration' : 'Studio'}
+            </button>
         </div>
     );
 };

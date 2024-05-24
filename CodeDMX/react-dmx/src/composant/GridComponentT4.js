@@ -88,7 +88,7 @@ const GridComponentT4 = () => {
             }
 
             if (draggedGridDataId !== null) {
-                await updateCellInDatabase(draggedGridDataId, targetX, targetY);
+                await updateCellInDatabase(draggedGridDataId, targetX, targetY,idUser);
             } else if (idNewScene !== null) {
                 await addSceneOnLightBoard(idNewScene, targetX, targetY, idUser);
             }
@@ -227,9 +227,9 @@ const fetchDataFromAPI = async (userId) => {
     }
 };
 
-const updateCellInDatabase = async (id, newX, newY) => {
+const updateCellInDatabase = async (idScene, newX, newY, idUser) => {
     try {
-        const response = await fetch(`http://192.168.65.91/ProjetDMX/CodeDMX/updatePosition.php?id=${id}&x=${newX}&y=${newY}`, {
+        const response = await fetch(`http://192.168.65.91/ProjetDMX/CodeDMX/updatePosition.php?idUser=${idUser}&idScene=${idScene}&x=${newX}&y=${newY}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
