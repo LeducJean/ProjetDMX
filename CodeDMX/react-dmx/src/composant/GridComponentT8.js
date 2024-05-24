@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
-import './GridComponentT7.css';
+import './GridComponentT8.css';
 
-const GridComponentT7 = () => {
+const GridComponentT8 = () => {
     const [gridData, setGridData] = useState([]);
     const [mode, setMode] = useState('studio');
     const [idUser, setUser] = useState(12);
@@ -76,30 +76,30 @@ const GridComponentT7 = () => {
 
     const handleCellDrop = async (event, targetCellId) => {
         event.preventDefault();
-    
+
         // Vérifier si l'élément est glissé sur la zone de suppression
         if (targetCellId === 'delete-zone' && draggedGridDataId !== null) {
             await deleteSceneFromLightBoard(draggedGridDataId, idUser, setScenes);
         } else {
             const targetX = targetCellId.split('-')[1];
             const targetY = targetCellId.split('-')[2];
-    
+
             if (![0, 1, 2].includes(parseInt(targetX)) || ![0, 1, 2].includes(parseInt(targetY))) {
                 return;
             }
-    
+
             if (draggedGridDataId !== null) {
                 await updateCellInDatabase(draggedGridDataId, targetX, targetY, idUser);
             } else if (idNewScene !== null) {
                 await addSceneOnLightBoard(idNewScene, targetX, targetY, idUser, setScenes);
             }
         }
-    
+
         fetchDataFromAPI(idUser).then(data => {
             setGridData(data);
         });
     };
-    
+
     const handleSceneDragStart = (event, sceneId) => {
         setIdNewScene(sceneId);
         setDraggedGridDataId(null);
@@ -163,6 +163,10 @@ const GridComponentT7 = () => {
         }
     };
 
+    const handleDeleteAllLightBoards = async () => {
+        await deleteAllLightBoards();
+    };
+
     return (
         <div>
             <h2>Mode {mode === 'studio' ? 'Studio' : 'Configuration'}</h2>
@@ -196,14 +200,12 @@ const GridComponentT7 = () => {
                     className="delete-zone"
                     onDragOver={(event) => handleCellDragOver(event)}
                     onDrop={(event) => handleCellDrop(event, 'delete-zone')}
+                    onClick={handleDeleteAllLightBoards} // Nouvel événement onClick
                 >
                     🗑️
                 </div>
             )}
             <button onClick={toggleMode}>Mode {mode === 'studio' ? 'Configuration' : 'Studio'}</button>
-            {mode === 'configuration' && (
-                <button onClick={deleteAllLightBoards}>Supprimer toutes les lightboards</button>
-            )}
         </div>
     );
 };
@@ -273,7 +275,7 @@ const addSceneOnLightBoard = async (idScene, newX, newY, idUser, setScenes) => {
         // Rafraîchir la liste des scènes après l'ajout
         fetchSceneFromAPI(idUser).then(data => {
             setScenes(data);
-        });        
+        });
     } catch (error) {
         console.error('Error adding scene to lightboard:', error);
     }
@@ -320,4 +322,4 @@ const updateOnOffInDatabase = async (cellId, idUser) => {
     }
 };
 
-export default GridComponentT7;
+export default GridComponentT8;

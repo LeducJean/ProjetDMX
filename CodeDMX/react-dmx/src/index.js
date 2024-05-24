@@ -10,6 +10,7 @@ import GridComponentT4 from './composant/GridComponentT4';
 import GridComponentT5 from './composant/GridComponentT5';
 import GridComponentT6 from './composant/GridComponentT6';
 import GridComponentT7 from './composant/GridComponentT7';
+import GridComponentT8 from './composant/GridComponentT8';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -21,8 +22,9 @@ root.render(
     {/*  <GridComponentT5 />  */}
     {/*  <GridComponentT6 />  */}
     {/*  <GridComponentT7 />  */}
+    {/*  <GridComponentT8 />  */}
 
-    <GridComponentT7 />
+    <GridComponentT8 />
   </React.StrictMode>
 );
 
