@@ -70,10 +70,14 @@
     cursor: grabbing;
   }
 
-  .square-drop-zone {
-    width: 200px; /* Définissez la largeur de la zone carrée */
-    height: 200px; /* Définissez la hauteur de la zone carrée */
-    background-color: #f0f0f0; /* Couleur de fond de la zone carrée */
-    border: 2px dashed #999; /* Bordure en pointillés pour indiquer la zone de dépôt */
-    margin: 20px; /* Marge pour l'espacement */
+  .delete-zone {
+    width: 150px;
+    height: 150px;
+    border: 2px dashed red;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+    background-color: #f8d7da;
+    color: #721c24;
 }
