@@ -40,7 +40,7 @@ const GridComponentT6 = () => {
         if (mode === 'studio' && cellData) {
             if (webSocket.current && webSocket.current.readyState === WebSocket.OPEN) {
                 // Envoyer l'ID de la scène au serveur WebSocket
-                webSocket.current.send(cellData.idScene);
+                webSocket.current.send(JSON.stringify({ idScene: cellData.idScene }));
 
                 // Mettre à jour la base de données pour mettre onOff à 1 pour l'ID de la lightBoard
                 // et mettre à 0 pour tous les autres pour cet ID utilisateur
