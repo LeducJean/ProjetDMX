@@ -40,6 +40,10 @@
   background-color: #ff0c0c;
 }
 
+.highlighted:hover {
+  background-color: #ff7f7f; /* Couleur de fond au survol pour .highlighted */
+}
+
 .delete-zone {
   display: flex;
   align-items: center;
