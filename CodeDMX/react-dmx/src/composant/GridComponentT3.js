@@ -13,7 +13,7 @@ const GridComponentT3 = () => {
     fetchDataFromAPI(idUser).then(data => {
       setGridData(data);
     });
-    fetch('http://192.168.65.91/ProjetDMX/CodeDMX/scenes.php')
+    fetch('http://192.168.65.91/ProjetDMX/CodeDMX/scenes.php?userId=${idUser}')
       .then(response => response.json())
       .then(data => {
         setScenes(data);
