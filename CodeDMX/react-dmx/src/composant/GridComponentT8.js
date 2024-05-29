@@ -1,17 +1,21 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './GridComponentT8.css';
 
+const ipAddress = "192.168.65.91"; // Adresse IP à utiliser
+const ipAddressWebSocket = "192.168.64.170:12346"; // Adresse IP WebSocket à utiliser
+const $idUserConnect = "12";
+
 const GridComponentT8 = () => {
     const [gridData, setGridData] = useState([]);
     const [mode, setMode] = useState('studio');
-    const [idUser, setUser] = useState(12);
+    const [idUser, setUser] = useState($idUserConnect);
     const [draggedGridDataId, setDraggedGridDataId] = useState(null);
     const [idNewScene, setIdNewScene] = useState(null);
     const webSocket = useRef(null);
     const [scenes, setScenes] = useState([]);
 
     useEffect(() => {
-        setUser(12); // Setting user ID to 12
+        setUser($idUserConnect);
         fetchDataFromAPI(idUser).then(data => {
             setGridData(data);
         });
@@ -19,8 +23,7 @@ const GridComponentT8 = () => {
             setScenes(data);
         });
 
-        // Configurer la connexion WebSocket
-        webSocket.current = new WebSocket('ws://192.168.64.170:12346'); // Remplacer par l'URL de votre serveur WebSocket
+        webSocket.current = new WebSocket(`ws://${ipAddressWebSocket}`);
         webSocket.current.onopen = () => {
             console.log('WebSocket connection established');
         };
@@ -39,16 +42,9 @@ const GridComponentT8 = () => {
     const handleCellClick = (cellData) => {
         if (mode === 'studio' && cellData && cellData.idScene) {
             if (webSocket.current && webSocket.current.readyState === WebSocket.OPEN) {
-                // Envoyer l'ID de la scène au serveur WebSocket
                 webSocket.current.send(JSON.stringify({ idScene: cellData.idScene }));
-    
-                // Mettre à jour la base de données pour mettre onOff à 1 pour l'ID de la lightBoard
-                // et mettre à 0 pour tous les autres pour cet ID utilisateur
                 updateOnOffInDatabase(cellData.id, idUser)
                     .then(() => {
-                        console.log('onOff updated successfully');
-    
-                        // Rafraîchir la grille après la mise à jour de la base de données
                         fetchDataFromAPI(idUser).then(data => {
                             setGridData(data);
                         });
@@ -62,14 +58,19 @@ const GridComponentT8 = () => {
         } else {
             console.error('Invalid cellData or missing idScene');
         }
-    };    
+    };
 
     const handleCellDragStart = (event, cellId) => {
         const draggedCellData = gridData.find(cell => cell.id === cellId);
         if (draggedCellData) {
             setDraggedGridDataId(draggedCellData.id);
             event.dataTransfer.setData('text/plain', cellId);
+            event.target.classList.add('dragging');
         }
+    };
+
+    const handleCellDragEnd = (event) => {
+        event.target.classList.remove('dragging');
     };
 
     const handleCellDragOver = (event) => {
@@ -79,7 +80,6 @@ const GridComponentT8 = () => {
     const handleCellDrop = async (event, targetCellId) => {
         event.preventDefault();
 
-        // Vérifier si l'élément est glissé sur la zone de suppression
         if (targetCellId === 'delete-zone' && draggedGridDataId !== null) {
             await deleteSceneFromLightBoard(draggedGridDataId, idUser, setScenes);
         } else {
@@ -100,6 +100,14 @@ const GridComponentT8 = () => {
         fetchDataFromAPI(idUser).then(data => {
             setGridData(data);
         });
+
+        event.target.classList.add('dropped');
+        setTimeout(() => {
+            event.target.classList.remove('dropped');
+        }, 500);
+
+        setDraggedGridDataId(null);  // Réinitialiser l'état après le drop
+        setIdNewScene(null);  // Réinitialiser également l'id de la nouvelle scène
     };
 
     const handleSceneDragStart = (event, sceneId) => {
@@ -124,10 +132,11 @@ const GridComponentT8 = () => {
                     key={i}
                     id={cellId}
                     className={cellClassName}
-                    draggable={mode === 'configuration'}
+                    draggable={mode === 'configuration' && !!cellData}
                     onClick={() => handleCellClick(cellData)}
                     onDragStart={(event) => handleCellDragStart(event, cellData?.id)}
-                    onDragOver={(event) => handleCellDragOver(event)}
+                    onDragEnd={handleCellDragEnd}
+                    onDragOver={handleCellDragOver}
                     onDrop={(event) => handleCellDrop(event, cellId)}
                 >
                     {sceneName}
@@ -143,7 +152,7 @@ const GridComponentT8 = () => {
 
     const deleteAllLightBoards = async () => {
         try {
-            const response = await fetch(`http://192.168.65.91/ProjetDMX/CodeDMX/deleteAllLightBoards.php?idUser=${idUser}`, {
+            const response = await fetch(`http://${ipAddress}/ProjetDMX/CodeDMX/deleteAllLightBoards.php?idUser=${idUser}`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -156,7 +165,6 @@ const GridComponentT8 = () => {
 
             console.log('All lightboards deleted successfully');
 
-            // Rafraîchir la grille après suppression
             fetchDataFromAPI(idUser).then(data => {
                 setGridData(data);
             });
@@ -167,7 +175,6 @@ const GridComponentT8 = () => {
 
     const handleDeleteAllLightBoards = async () => {
         await deleteAllLightBoards();
-        // Mettre à jour la liste des scènes après la suppression
         fetchSceneFromAPI(idUser).then(data => {
             setScenes(data);
         });
@@ -192,23 +199,22 @@ const GridComponentT8 = () => {
                                 className="grid-cell"
                                 draggable={mode === 'configuration'}
                                 onDragStart={(event) => handleSceneDragStart(event, scene.id)}
-                            >
-                                {scene.nom}
+                            >                                {scene.nom}
                             </div>
                         ))}
                     </div>
                 </div>
             )}
-            <div className="grid-container" onDragOver={(event) => handleCellDragOver(event)} onDrop={(event) => handleCellDrop(event, 'grid-container')}>
+            <div className="grid-container" onDragOver={handleCellDragOver} onDrop={(event) => handleCellDrop(event, 'grid-container')}>
                 {renderGrid()}
             </div>
             {mode === 'configuration' && (
                 <div
                     id="delete-zone"
                     className="delete-zone"
-                    onDragOver={(event) => handleCellDragOver(event)}
+                    onDragOver={handleCellDragOver}
                     onDrop={(event) => handleCellDrop(event, 'delete-zone')}
-                    onClick={handleDeleteAllLightBoards} // Nouvel événement onClick
+                    onClick={handleDeleteAllLightBoards}
                 >
                     🗑️
                 </div>
@@ -222,7 +228,7 @@ const GridComponentT8 = () => {
 
 const fetchSceneFromAPI = async (idUser) => {
     try {
-        const response = await fetch(`http://192.168.65.91/ProjetDMX/CodeDMX/scenes.php?userId=${idUser}`);
+        const response = await fetch(`http://${ipAddress}/ProjetDMX/CodeDMX/scenes.php?userId=${idUser}`);
         if (!response.ok) {
             throw new Error('Failed to fetch data from API');
         }
@@ -236,7 +242,7 @@ const fetchSceneFromAPI = async (idUser) => {
 
 const fetchDataFromAPI = async (userId) => {
     try {
-        const response = await fetch(`http://192.168.65.91/ProjetDMX/CodeDMX/getGrille.php?userId=${userId}`);
+        const response = await fetch(`http://${ipAddress}/ProjetDMX/CodeDMX/getGrille.php?userId=${userId}`);
         if (!response.ok) {
             throw new Error('Failed to fetch data from API');
         }
@@ -250,7 +256,7 @@ const fetchDataFromAPI = async (userId) => {
 
 const updateCellInDatabase = async (idScene, newX, newY, idUser) => {
     try {
-        const response = await fetch(`http://192.168.65.91/ProjetDMX/CodeDMX/updatePosition.php?idUser=${idUser}&idScene=${idScene}&x=${newX}&y=${newY}`, {
+        const response = await fetch(`http://${ipAddress}/ProjetDMX/CodeDMX/updatePosition.php?idUser=${idUser}&idScene=${idScene}&x=${newX}&y=${newY}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -269,7 +275,7 @@ const updateCellInDatabase = async (idScene, newX, newY, idUser) => {
 
 const addSceneOnLightBoard = async (idScene, newX, newY, idUser, setScenes) => {
     try {
-        const response = await fetch(`http://192.168.65.91/ProjetDMX/CodeDMX/addScene.php?idUser=${idUser}&idScene=${idScene}&x=${newX}&y=${newY}`, {
+        const response = await fetch(`http://${ipAddress}/ProjetDMX/CodeDMX/addScene.php?idUser=${idUser}&idScene=${idScene}&x=${newX}&y=${newY}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -282,7 +288,6 @@ const addSceneOnLightBoard = async (idScene, newX, newY, idUser, setScenes) => {
 
         console.log('Scene added to lightboard successfully');
 
-        // Rafraîchir la liste des scènes après l'ajout
         fetchSceneFromAPI(idUser).then(data => {
             setScenes(data);
         });
@@ -293,7 +298,7 @@ const addSceneOnLightBoard = async (idScene, newX, newY, idUser, setScenes) => {
 
 const deleteSceneFromLightBoard = async (id, idUser, setScenes) => {
     try {
-        const response = await fetch(`http://192.168.65.91/ProjetDMX/CodeDMX/deleteScene.php?id=${id}`, {
+        const response = await fetch(`http://${ipAddress}/ProjetDMX/CodeDMX/deleteScene.php?id=${id}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -306,7 +311,6 @@ const deleteSceneFromLightBoard = async (id, idUser, setScenes) => {
 
         console.log('Scene deleted from lightboard successfully');
 
-        // Rafraîchir la liste des scènes après la suppression
         fetchSceneFromAPI(idUser).then(data => {
             setScenes(data);
         });
@@ -317,7 +321,7 @@ const deleteSceneFromLightBoard = async (id, idUser, setScenes) => {
 
 const updateOnOffInDatabase = async (cellId, idUser) => {
     try {
-        const response = await fetch(`http://192.168.65.91/ProjetDMX/CodeDMX/updateOnOff.php?id=${cellId}&idUser=${idUser}`, {
+        const response = await fetch(`http://${ipAddress}/ProjetDMX/CodeDMX/updateOnOff.php?id=${cellId}&idUser=${idUser}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',

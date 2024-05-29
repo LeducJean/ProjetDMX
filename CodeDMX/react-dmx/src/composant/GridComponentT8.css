@@ -1,30 +1,21 @@
+/* Pour la grille */
 .grid-container {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  /* 3 colonnes égales */
+  grid-template-columns: repeat(3, 1fr); /* Toujours trois colonnes */
   gap: 10px;
-  /* Espacement entre les cellules */
-  max-width: 600px;
-  /* Largeur maximale de la grille */
+  max-width: 32%; /* Largeur maximale de la grille */
   margin: 0 auto;
-  /* Centrer la grille horizontalement */
   margin-top: 5%;
 }
 
+/* Au survol de toutes les cellules de la grille */
 .grid-cell:hover {
   background-color: #0a7596;
-  /* Couleur de fond au survol */
 }
 
-.grid-cell.draggable {
-  cursor: grab;
-}
-
-.grid-cell.draggable:active {
-  cursor: grabbing;
-}
-
-.grid-cell {
+/* Pour toutes les cellules (vides et remplies) */
+.grid-cell,
+.scene-list-container .grid-cell {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -34,6 +25,17 @@
   font-size: 20px;
   cursor: pointer;
   border-radius: 10px;
+  transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+/* Pour les cases vides dans la liste des scènes */
+.scene-list-container .grid-cell {
+  flex: 0 0 calc(30% - 10px);
+}
+
+/* Au survol des cases (vides et remplies) dans la liste des scènes */
+.scene-list-container .grid-cell:hover {
+  background-color: #0a7596;
 }
 
 .highlighted {
@@ -49,7 +51,7 @@
   align-items: center;
   justify-content: center;
   height: 75px;
-  background-color: #e74c3c;
+  background-color: #ff2f18;
   color: #fff;
   font-size: 20px;
   cursor: pointer;
@@ -60,16 +62,20 @@
 }
 
 .scene-list-container {
-  max-height: 100px;
-  /* Définissez la hauteur maximale de la liste des scènes */
+  max-height: 500px; /* Hauteur maximale de la liste des scènes */
   margin-bottom: 10px;
   position: fixed;
-  top: 0;
-  max-height: calc(100vh - 500px);
-  /* Ajuste la hauteur maximale en fonction de la hauteur de la fenêtre */
+  top: 15%;
+  width: 25%;
+  max-width: 90%; /* Largeur maximale de la liste des scènes */
   overflow-y: auto;
   overflow-x: hidden;
-  width: 25%;
+  border: 2px solid #ccc;
+  border-radius: 10px;
+  background-color: #fff;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  padding: 10px;
+  margin-left: 2%;
 }
 
 .scene-scroll-container {
@@ -114,4 +120,18 @@
   font-size: 40px;
   font-weight: bold;
   margin-top: 20px;
+}
+
+.grid-cell.dragging {
+  opacity: 0.5;
+  transform: scale(1.1);
+}
+
+.grid-cell.dropped {
+  transition: background-color 0.5s ease;
+  background-color: #3498db;
+}
+
+body {
+  background-color: #ffffff; /* Couleur de fond gris clair */
 }
