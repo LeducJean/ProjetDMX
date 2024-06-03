@@ -10,7 +10,8 @@ import reportWebVitals from './reportWebVitals';
 //import GridComponentT5 from './composant/GridComponentT5';
 //import GridComponentT6 from './composant/GridComponentT6';
 //import GridComponentT7 from './composant/GridComponentT7';
-import GridComponentT8 from './composant/GridComponentT8';
+//import GridComponentT8 from './composant/GridComponentT8';
+import StreamDeck from './StreamDeck'; // Ajoutez './' pour le chemin relatif correct
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -24,7 +25,7 @@ root.render(
     {/*  <GridComponentT7 />  */}
     {/*  <GridComponentT8 />  */}
 
-    <GridComponentT8 />
+    <StreamDeck />
   </React.StrictMode>
 );
 

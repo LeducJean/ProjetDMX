@@ -6,6 +6,10 @@
   max-width: 32%; /* Largeur maximale de la grille */
   margin: 0 auto;
   margin-top: 5%;
+  border: 2px solid #ccc; /* Ajout d'une bordure */
+  border-radius: 10px; /* Coins arrondis */
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Ajout d'une ombre */
+  transition: transform 0.3s ease-in-out; /* Animation */
 }
 
 /* Au survol de toutes les cellules de la grille */
@@ -26,6 +30,29 @@
   cursor: pointer;
   border-radius: 10px;
   transition: transform 0.2s ease, background-color 0.2s ease;
+  border: 1px solid #ccc; /* Ajout d'une bordure */
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Ajout d'une ombre */
+  transition: background-color 0.2s ease, transform 0.2s ease; /* Animation */
+}
+
+/* Animation lors du drag'n drop */
+.grid-cell.dragging {
+  opacity: 0.5;
+  transform: scale(1.1);
+}
+
+.grid-cell.dropped {
+  transition: background-color 0.5s ease;
+  background-color: #3498db;
+  animation: shake 0.5s; /* Animation de secousse */
+}
+
+@keyframes shake {
+  0% { transform: translateX(0); }
+  25% { transform: translateX(-5px); }
+  50% { transform: translateX(5px); }
+  75% { transform: translateX(-5px); }
+  100% { transform: translateX(0); }
 }
 
 /* Pour les cases vides dans la liste des scènes */
@@ -46,6 +73,11 @@
   background-color: #ff7f7f; /* Couleur de fond au survol pour .highlighted */
 }
 
+/* Ajouter l'animation de secousse pour .highlighted lorsque le drag se termine */
+.grid-cell.highlighted.dropped {
+  animation: shake 0.5s; /* Animation de secousse */
+}
+
 .delete-zone {
   display: flex;
   align-items: center;
@@ -59,6 +91,14 @@
   width: 30%;
   margin-left: 35%;
   margin-top: 3%;
+  border: 2px solid #ccc; /* Ajout d'une bordure */
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* Ajout d'une ombre */
+  transition: background-color 0.3s ease, transform 0.3s ease; /* Animation */
+}
+
+.delete-zone:hover {
+  background-color: #ff6347;
+  transform: scale(1.05);
 }
 
 .scene-list-container {
@@ -105,10 +145,13 @@
   border: none;
   border-radius: 5px;
   cursor: pointer;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* Ajout d'une ombre */
+  transition: background-color 0.3s ease, transform 0.3s ease; /* Animation */
 }
 
 .mode-button:hover {
   background-color: #34495e;
+  transform: scale(1.05);
 }
 
 .container {
@@ -120,16 +163,6 @@
   font-size: 40px;
   font-weight: bold;
   margin-top: 20px;
-}
-
-.grid-cell.dragging {
-  opacity: 0.5;
-  transform: scale(1.1);
-}
-
-.grid-cell.dropped {
-  transition: background-color 0.5s ease;
-  background-color: #3498db;
 }
 
 body {
