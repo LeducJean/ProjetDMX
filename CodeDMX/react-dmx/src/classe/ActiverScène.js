@@ -1,5 +1,5 @@
 // Importez ipAddress et fetchSceneFromAPI
-import { ipAddress, fetchSceneFromAPI } from '../config'; // Assurez-vous que le chemin est correct
+import { ipAddress, fetchSceneFromAPI } from '../config';
 
 class ActiverScène {
   constructor(idUser) {
