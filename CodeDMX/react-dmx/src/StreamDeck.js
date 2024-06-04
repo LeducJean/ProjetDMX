@@ -3,19 +3,18 @@ import './StreamDeck.css';
 
 const ipAddress = "192.168.65.91"; // Adresse IP à utiliser
 const ipAddressWebSocket = "192.168.64.170:12346"; // Adresse IP WebSocket à utiliser
-const $idUserConnect = "12";
 
-const StreamDeck = () => {
+const StreamDeck = ({IdUser}) => {
     const [gridData, setGridData] = useState([]);
     const [mode, setMode] = useState('studio');
-    const [idUser, setUser] = useState($idUserConnect);
+    const [idUser, setUser] = useState(IdUser);
     const [draggedGridDataId, setDraggedGridDataId] = useState(null);
     const [idNewScene, setIdNewScene] = useState(null);
     const webSocket = useRef(null);
     const [scenes, setScenes] = useState([]);
 
     useEffect(() => {
-        setUser($idUserConnect);
+        setUser(idUser);
         fetchDataFromAPI(idUser).then(data => {
             setGridData(data);
         });

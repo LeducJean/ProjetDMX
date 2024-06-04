@@ -11,7 +11,7 @@ import reportWebVitals from './reportWebVitals';
 //import GridComponentT6 from './composant/GridComponentT6';
 //import GridComponentT7 from './composant/GridComponentT7';
 //import GridComponentT8 from './composant/GridComponentT8';
-import StreamDeck from './StreamDeck'; // Ajoutez './' pour le chemin relatif correct
+import StreamDeck from './StreamDeck';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -25,7 +25,7 @@ root.render(
     {/*  <GridComponentT7 />  */}
     {/*  <GridComponentT8 />  */}
 
-    <StreamDeck />
+    <StreamDeck IdUser={12}/>
   </React.StrictMode>
 );
 
@@ -33,3 +33,5 @@ root.render(
 // to log results (for example: reportWebVitals(console.log))
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals();
+
+
