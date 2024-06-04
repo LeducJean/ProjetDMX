@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './StreamDeck.css';
-import { ipAddress, fetchSceneFromAPI } from './config';
 
+const ipAddress = "192.168.65.91"; // Adresse IP à utiliser
 const ipAddressWebSocket = "192.168.64.170:12346"; // Adresse IP WebSocket à utiliser
 const $idUserConnect = "12";
 
@@ -199,8 +199,7 @@ const StreamDeck = () => {
                                 className="grid-cell"
                                 draggable={mode === 'configuration'}
                                 onDragStart={(event) => handleSceneDragStart(event, scene.id)}
-                            >
-                                {scene.nom}
+                            >                                {scene.nom}
                             </div>
                         ))}
                     </div>
@@ -225,6 +224,20 @@ const StreamDeck = () => {
             </button>
         </div>
     );
+};
+
+const fetchSceneFromAPI = async (idUser) => {
+    try {
+        const response = await fetch(`http://${ipAddress}/ProjetDMX/CodeDMX/scenes.php?userId=${idUser}`);
+        if (!response.ok) {
+            throw new Error('Failed to fetch data from API');
+        }
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        console.error('Error fetching data:', error);
+        return [];
+    }
 };
 
 const fetchDataFromAPI = async (userId) => {
@@ -262,7 +275,7 @@ const updateCellInDatabase = async (idScene, newX, newY, idUser) => {
 
 const addSceneOnLightBoard = async (idScene, newX, newY, idUser, setScenes) => {
     try {
-        const response = await fetch(`http://${ipAddress}/ProjetDMX/CodeDMX/addSceneOnLightBoard.php?idUser=${idUser}&idScene=${idScene}&x=${newX}&y=${newY}`, {
+        const response = await fetch(`http://${ipAddress}/ProjetDMX/CodeDMX/addScene.php?idUser=${idUser}&idScene=${idScene}&x=${newX}&y=${newY}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -270,40 +283,22 @@ const addSceneOnLightBoard = async (idScene, newX, newY, idUser, setScenes) => {
         });
 
         if (!response.ok) {
-            throw new Error('Failed to add scene on lightboard');
+            throw new Error('Failed to add scene to lightboard');
         }
 
-        console.log('Scene added on lightboard successfully');
+        console.log('Scene added to lightboard successfully');
 
-        const updatedScenes = await fetchSceneFromAPI(idUser);
-        setScenes(updatedScenes);
-    } catch (error) {
-        console.error('Error adding scene on lightboard:', error);
-    }
-};
-
-const updateOnOffInDatabase = async (id, idUser) => {
-    try {
-        const response = await fetch(`http://${ipAddress}/ProjetDMX/CodeDMX/updateOnOff.php?idUser=${idUser}&id=${id}`, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-            },
+        fetchSceneFromAPI(idUser).then(data => {
+            setScenes(data);
         });
-
-        if (!response.ok) {
-            throw new Error('Failed to update onOff in database');
-        }
-
-        console.log('onOff updated in database successfully');
     } catch (error) {
-        console.error('Error updating onOff in database:', error);
+        console.error('Error adding scene to lightboard:', error);
     }
 };
 
-const deleteSceneFromLightBoard = async (idScene, idUser, setScenes) => {
+const deleteSceneFromLightBoard = async (id, idUser, setScenes) => {
     try {
-        const response = await fetch(`http://${ipAddress}/ProjetDMX/CodeDMX/deleteSceneFromLightBoard.php?idUser=${idUser}&idScene=${idScene}`, {
+        const response = await fetch(`http://${ipAddress}/ProjetDMX/CodeDMX/deleteScene.php?id=${id}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -316,10 +311,28 @@ const deleteSceneFromLightBoard = async (idScene, idUser, setScenes) => {
 
         console.log('Scene deleted from lightboard successfully');
 
-        const updatedScenes = await fetchSceneFromAPI(idUser);
-        setScenes(updatedScenes);
+        fetchSceneFromAPI(idUser).then(data => {
+            setScenes(data);
+        });
     } catch (error) {
         console.error('Error deleting scene from lightboard:', error);
+    }
+};
+
+const updateOnOffInDatabase = async (cellId, idUser) => {
+    try {
+        const response = await fetch(`http://${ipAddress}/ProjetDMX/CodeDMX/updateOnOff.php?id=${cellId}&idUser=${idUser}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+
+        if (!response.ok) {
+            throw new Error('Failed to update onOff in database');
+        }
+    } catch (error) {
+        throw new Error('Error updating onOff in database:', error);
     }
 };
 

@@ -1,4 +1,3 @@
-// Importez ipAddress et fetchSceneFromAPI
 import { ipAddress, fetchSceneFromAPI } from '../config';
 
 class ActiverScène {
