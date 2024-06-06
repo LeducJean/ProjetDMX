@@ -4,8 +4,8 @@ import './Login.css';
 const ipAddress = "192.168.65.91";
 
 const Login = ({ onLoginSuccess }) => {
-    const [email, setEmail] = useState('simonbriaux@gmail.com');
-    const [password, setPassword] = useState('briauxS');
+    const [email, setEmail] = useState('jeanleduc@gmail.com');
+    const [password, setPassword] = useState('varna');
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
 
