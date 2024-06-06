@@ -164,7 +164,7 @@ const GridComponentT7 = () => {
     };
 
     return (
-        <div>
+        <div> Module de test N°7 : Ajout de des listes de lumiere
             <h2>Mode {mode === 'studio' ? 'Studio' : 'Configuration'}</h2>
             {mode === 'configuration' && (
                 <div
