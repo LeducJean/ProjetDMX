@@ -1,50 +1,66 @@
 import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import './Login.css';
 
-const Login = () => {
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const history = useHistory();
+const ipAddress = "192.168.65.91";
+
+const Login = ({ onLoginSuccess }) => {
+    const [email, setEmail] = useState('simonbriaux@gmail.com');
+    const [password, setPassword] = useState('briauxS');
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState('');
 
     const handleLogin = async (e) => {
         e.preventDefault();
-        const response = await fetch('http://localhost:5000/login', {
+        setLoading(true); // Démarre l'animation de chargement
+
+        const response = await fetch(`http://${ipAddress}/ProjetDMX/CodeDMX/login.php?mail=${email}&pass=${password}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({ email, password }),
         });
+
+        setLoading(false); // Arrête l'animation de chargement
+
         const data = await response.json();
         if (data.success) {
-            history.push('/streamdeck');
+            console.log(data);
+            onLoginSuccess(data.userId);
         } else {
-            alert('Login failed');
+            setError('Login failed');
         }
     };
 
     return (
-        <form onSubmit={handleLogin}>
-            <div>
-                <label>Email</label>
-                <input 
-                    type="email" 
-                    value={email} 
-                    onChange={(e) => setEmail(e.target.value)} 
-                    required 
-                />
+        <div className="container">
+            <div className="form-container">
+                <form onSubmit={handleLogin}>
+                    <div>
+                        <label>Email</label>
+                        <input 
+                            type="email" 
+                            value={email} 
+                            onChange={(e) => setEmail(e.target.value)} 
+                            required 
+                        />
+                    </div>
+                    <div>
+                        <label>Password</label>
+                        <input 
+                            type="password" 
+                            value={password} 
+                            onChange={(e) => setPassword(e.target.value)} 
+                            required 
+                        />
+                    </div>
+                    <button type="submit">
+                        {loading ? <div className="loader"></div> : 'Login'}
+                    </button>
+                </form>
+                {error && <p className="error-message">{error}</p>}
             </div>
-            <div>
-                <label>Password</label>
-                <input 
-                    type="password" 
-                    value={password} 
-                    onChange={(e) => setPassword(e.target.value)} 
-                    required 
-                />
-            </div>
-            <button type="submit">Login</button>
-        </form>
+        </div>
     );
 };
 

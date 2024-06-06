@@ -14,6 +14,7 @@ const StreamDeck = ({IdUser}) => {
     const [scenes, setScenes] = useState([]);
 
     useEffect(() => {
+        console.log(idUser);
         setUser(idUser);
         fetchDataFromAPI(idUser).then(data => {
             setGridData(data);
