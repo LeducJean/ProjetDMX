@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './Login.css';
 
-const ipAddress = "192.168.65.91";
+const ipAddress = "192.168.65.91"; // Adresse IP à utiliser
 
 const Login = ({ onLoginSuccess }) => {
     const [email, setEmail] = useState('jeanleduc@gmail.com');

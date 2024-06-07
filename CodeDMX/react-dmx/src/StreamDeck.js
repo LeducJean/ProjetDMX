@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './StreamDeck.css';
 
-const ipAddress = "192.168.65.91"; // Adresse IP à utiliser
-const ipAddressWebSocket = "192.168.64.170:12346"; // Adresse IP WebSocket à utiliser
+const ipAddress = "192.168.65.91"; // Adresse IP utilisée
+const ipAddressWebSocket = "192.168.64.170:12346"; // Adresse IP WebSocket utilisée
 
 const StreamDeck = ({IdUser}) => {
     const [gridData, setGridData] = useState([]);
